@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row text-center vertical-align">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <form class="text-center" #consentForm="ngForm">
+        <div class="form-inline">
+          <label class="sr-only" for="accountName">ชื่อ</label>
+  			  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+  			  	<input
+              type="text"
+              class="form-control mb-2 mr-sm-2 mb-sm-0"
+              id="accountName"
+              name="accountName"
+              placeholder="ชื่อ - นามสกุล"
+              ngModel
+              required>
+  			  </div>
+
+  			  <label class="sr-only" for="accountSurname">นามสกุล</label>
+  			  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+  			    <input
+              type="text"
+              class="form-control"
+              id="accountSurname"
+              name="accountSurname"
+              placeholder="CIS"
+              ngModel
+              required>
+  			  </div>
+          <hr>
+
+  				<button type="button" id="customerAccept"  class="btn btn-default btn-primary" [disabled]="!consentForm.valid" (click)="onConsentClick(true)">อนุญาต</button>
+  				<button type="button" id="customerDecline"  class="btn btn-danger" [disabled]="!consentForm.valid" (click)="onConsentClick(false)">ไม่อนุญาต</button>
+        </div>
+      </form>
+
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

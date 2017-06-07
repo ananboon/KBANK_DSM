@@ -1,0 +1,54 @@
+<div class="col-md-2">
+
+</div>
+<div class="col-md-8">
+  <div class="row">
+    <div class="col-md-12">
+      <form class=" text-center" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <p>
+						Welcome to<br>
+						Digital Sales<br>
+						Management
+				</p>
+				<hr>
+				<p>
+					กรุณากรอก Username และ Password
+				</p>
+        <hr>
+        <div class="form-inline form-group">
+          <label class="sr-only" for="inlineFormInput">UserName</label>
+  		  	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+  		    	<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+  		  		<input
+              type="text"
+              class="form-control mb-2 mr-sm-2 mb-sm-0"
+              id="inlineFormInput"
+              placeholder="Username"
+              name="username"
+              ngModel
+              required
+              #userName="ngModel">
+  		  	</div>
+
+  		  	<label class="sr-only" for="inlineFormInputGroup">Password</label>
+  		  	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+  		    	<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+  		    	<input
+              type="Password"
+              class="form-control"
+              id="inlineFormInputGroup"
+              placeholder="Password"
+              name="password"
+              ngModel
+              required
+              #password="ngModel">
+  		  	</div>
+        </div>
+        <button type="submit" class="btn btn-primary" name="login" [disabled]="!loginForm.valid">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="col-md-2">
+
+</div>
