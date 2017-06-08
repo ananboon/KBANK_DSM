@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { UserModel } from '../models/user.model';
 import { UserService } from '../services/user.service';
-import { MessageCommunicationService } from '../services/message-communication.service';
+
 
 
 
@@ -22,8 +22,6 @@ export class HeaderComponent implements OnInit{
 
   constructor(
     private userService: UserService,
-    private messageCommunicationService: MessageCommunicationService
-
   ){}
 
   ngOnInit(){
@@ -34,16 +32,6 @@ export class HeaderComponent implements OnInit{
         this.userInfoHasData = true;
       }
     );
-    this.messageCommunicationService.roomId = 'testRoom';
-    this.messageCommunicationService.connect();
-
-
-
-
-  }
-
-  sendMessageToServer(){
-    this.messageCommunicationService.sendMessage('test');
   }
 
   ngOnDestroy(){

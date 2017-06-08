@@ -26,19 +26,6 @@ export class MessageCommunicationService{
     console.log("MESSAGE SENT");
   }
 
-  // getMessages() {
-  //   let observable = new Observable(observer => {
-  //     this.socket = io(this.url);
-  //     this.socket.on('message', (data) => {
-  //       observer.next(data);
-  //     });
-  //     return () => {
-  //       this.socket.disconnect();
-  //     }
-  //   })
-  //   return observable;
-  // }
-
   ngOnDestroy(){
     this.socket.disconnect();
   }

@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 
 import { UserModel } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import { MessageCommunicationService } from '../../services/message-communication.service';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +19,11 @@ export class LoginComponent implements OnInit, OnDestroy{
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-
+    private messageCommunicationService: MessageCommunicationService
   ){}
 
   ngOnInit(){
-    
+
   }
 
   onSubmit(){
@@ -30,7 +31,18 @@ export class LoginComponent implements OnInit, OnDestroy{
     const password:string = this.loginForm.value.password;
     this.userService.logIn(username, password);
 
+    // Connect to the room with Id
+    this.messageCommunicationService.roomId = this.userService.user.id;
+    this.messageCommunicationService.connect();
+
+    // Test send message to server
+    this.sendMessageToServer('test');
+
     this.router.navigate(['/home']);
+  }
+
+  sendMessageToServer(message:string){
+    this.messageCommunicationService.sendMessage(message);
   }
 
   ngOnDestroy(){
