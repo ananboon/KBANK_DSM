@@ -4,7 +4,7 @@ import { Subject} from 'rxjs/Subject';
 import { UserModel } from '../models/user.model'
 
 export class UserService {
-  userLoggedIn = new Subject<UserModel>();
+  userLoggedInSubject = new Subject<UserModel>();
   user: UserModel = null;
 
   setUser(userInfo: UserModel){
@@ -16,8 +16,11 @@ export class UserService {
     // Query Database to fetch user data
 
     this.user = new UserModel('1','กสิกร รักไทย','head of everything','BE8');
-    this.userLoggedIn.next(this.user);
+    this.userLoggedInSubject.next(this.user);
+  }
 
+  userLoggedIn(){
+    return this.user != null;
   }
 
   logOut(){

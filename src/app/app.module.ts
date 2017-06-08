@@ -19,9 +19,11 @@ import { RecorderService } from './services/recorder.service';
 import { SharepointService } from './services/sharepoint.service';
 import { UserService } from './services/user.service';
 import { NavigationService } from './services/navigation.service';
+import { CanActivateViaAuthGuardService } from './services/canactivate-via-auth-guard.service';
 
 import { AppRoutingModule } from './app-routing.module';
-import { FundNavigatorComponent } from './content/fund-navigator/fund-navigator.component'
+import { FundNavigatorComponent } from './content/fund-navigator/fund-navigator.component';
+import { NotLoggedInComponent } from './content/not-logged-in/not-logged-in.component'
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { FundNavigatorComponent } from './content/fund-navigator/fund-navigator.
     ProfileCardComponent,
     ConnectComponent,
     CustomerConsentComponent,
-    FundNavigatorComponent
+    FundNavigatorComponent,
+    NotLoggedInComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { FundNavigatorComponent } from './content/fund-navigator/fund-navigator.
     RecorderService,
     SharepointService,
     UserService,
-    NavigationService
+    NavigationService,
+    CanActivateViaAuthGuardService
   ],
   bootstrap: [AppComponent]
 })

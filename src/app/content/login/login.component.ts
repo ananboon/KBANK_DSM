@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit, OnDestroy{
 
   ngOnInit(){
     //User guard for this
-    if(this.userService.user !== null){
-      this.router.navigate(['home']);
-    }
+    // if(this.userService.user !== null){
+    //   this.router.navigate(['home']);
+    // }
   }
 
   onSubmit(){

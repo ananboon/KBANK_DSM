@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit{
   constructor(private userService: UserService){}
 
   ngOnInit(){
-    this.userInfoSubscription = this.userService.userLoggedIn.subscribe(
+    this.userInfoSubscription = this.userService.userLoggedInSubject.subscribe(
       (user: UserModel) => {
         this.id = user.id;
         this.name = user.name;
