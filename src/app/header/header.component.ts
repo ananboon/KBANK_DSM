@@ -1,10 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription } from 'rxjs/Subscription';
 
-import { UserModel } from '../models/user.model'
+
+import { UserModel } from '../models/user.model';
 import { UserService } from '../services/user.service';
-import { MessageCommunicationService } from '../services/message-communication.service'
+import { MessageCommunicationService } from '../services/message-communication.service';
+
+
 
 @Component({
   selector: 'app-header',
@@ -17,7 +20,11 @@ export class HeaderComponent implements OnInit{
   id:string = '';
   name:string = '';
 
-  constructor(private userService: UserService, private messageCommunicationService: MessageCommunicationService){}
+  constructor(
+    private userService: UserService,
+    private messageCommunicationService: MessageCommunicationService
+
+  ){}
 
   ngOnInit(){
     this.userInfoSubscription = this.userService.userLoggedInSubject.subscribe(
@@ -29,6 +36,10 @@ export class HeaderComponent implements OnInit{
     );
     this.messageCommunicationService.roomId = 'testRoom';
     this.messageCommunicationService.connect();
+
+
+
+
   }
 
   sendMessageToServer(){

@@ -2,6 +2,7 @@ import { Injectable, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 
+
 Injectable()
 export class MessageCommunicationService{
   public roomId: string;
@@ -12,7 +13,7 @@ export class MessageCommunicationService{
     this.socket = io(this.url);
 
     // Create Room with the user id
-    this.socket.emit('createRoom',this.roomId);
+    this.socket.emit('joinRoom',this.roomId);
 
     // Callback when message received
     this.socket.on('message', (data) => {

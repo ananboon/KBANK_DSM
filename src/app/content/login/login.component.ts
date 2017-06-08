@@ -2,6 +2,7 @@ import { Component, Input, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
+
 import { UserModel } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 
@@ -13,13 +14,15 @@ import { UserService } from '../../services/user.service';
 export class LoginComponent implements OnInit, OnDestroy{
   @ViewChild('loginForm') loginForm: NgForm;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router){}
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router,
+
+  ){}
 
   ngOnInit(){
-    //User guard for this
-    // if(this.userService.user !== null){
-    //   this.router.navigate(['home']);
-    // }
+    
   }
 
   onSubmit(){

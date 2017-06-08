@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -23,7 +24,7 @@ import { CanActivateViaAuthGuardService } from './services/canactivate-via-auth-
 
 import { AppRoutingModule } from './app-routing.module';
 import { FundNavigatorComponent } from './content/fund-navigator/fund-navigator.component';
-import { NotLoggedInComponent } from './content/not-logged-in/not-logged-in.component'
+import { NotLoggedInComponent } from './content/not-logged-in/not-logged-in.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { NotLoggedInComponent } from './content/not-logged-in/not-logged-in.comp
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    Ng2DeviceDetectorModule.forRoot()
   ],
   providers: [
     MessageCommunicationService,
