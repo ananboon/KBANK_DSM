@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { Routes, Router, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
+import { DOCUMENT } from '@angular/platform-browser';
+
+import { MessageCommunicationService } from './services/message-communication.service';
 
 
 @Component({
@@ -8,7 +12,20 @@ import { Routes, Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  ngOnInit(){
 
+  constructor(@Inject(DOCUMENT) private document: Document, private messageCommunicationService: MessageCommunicationService){}
+
+  ngOnInit(){
+    this.messageCommunicationService.scrollSubject.subscribe((position) => {
+      this.document.body.scrollTop = +position;
+    });
+  }
+
+  @HostListener("window:scroll", [''])
+  onWindowScroll(){
+    const position = this.document.body.scrollTop;
+    if(this.messageCommunicationService.clientToSendTo != undefined){
+      this.messageCommunicationService.sendMessage('scroll',position);
+    }
   }
 }

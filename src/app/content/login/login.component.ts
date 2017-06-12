@@ -35,14 +35,11 @@ export class LoginComponent implements OnInit, OnDestroy{
     this.messageCommunicationService.roomId = this.userService.user.id;
     this.messageCommunicationService.connect();
 
-    // Test send message to server
-    this.sendMessageToServer('test');
-
     this.router.navigate(['/home']);
   }
 
   sendMessageToServer(message:string){
-    this.messageCommunicationService.sendMessage(message);
+    this.messageCommunicationService.sendMessage('login',message);
   }
 
   ngOnDestroy(){

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 
 import { NavigationService } from '../../services/navigation.service';
+import { MessageCommunicationService } from '../../services/message-communication.service'
 
 @Component({
   selector: 'app-banner',
@@ -10,15 +11,21 @@ import { NavigationService } from '../../services/navigation.service';
   styleUrls: ['./banner.component.css']
 })
 export class BannerComponent{
-  transactionStarted = new Subject<boolean>();
 
-  constructor(private navigationService: NavigationService, private route: ActivatedRoute, private router: Router){}
+  constructor(private navigationService: NavigationService, private messageCommunicationService: MessageCommunicationService, private route: ActivatedRoute, private router: Router){}
 
   ngOnInit(){
-
+    this.messageCommunicationService.bannerComponentSubject.subscribe(
+      (message) => {
+        console.log(message);
+        this.navigationService.startTransaction();
+        this.router.navigate(['/profileCard']);
+      }
+    );
   }
 
   onStartTransaction(){
+    this.messageCommunicationService.sendMessage('banner','startTransaction');
     this.navigationService.startTransaction();
     this.router.navigate(['/profileCard']);
   }

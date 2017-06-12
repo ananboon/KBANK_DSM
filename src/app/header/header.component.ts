@@ -6,9 +6,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { UserModel } from '../models/user.model';
 import { UserService } from '../services/user.service';
 
-
-
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
