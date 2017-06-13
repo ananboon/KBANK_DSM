@@ -15,15 +15,17 @@ import { FundNavigatorComponent } from './content/fund-navigator/fund-navigator.
 import { NotLoggedInComponent } from './content/not-logged-in/not-logged-in.component';
 
 import { CanActivateViaAuthGuardService } from './services/canactivate-via-auth-guard.service';
+import { CanActivateHomeToCustomerConsentGuardService } from './services/canactivate-home-to-customer-consent-guard.service';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent, canActivate: [CanActivateViaAuthGuardService]},
+  {path: 'login', component: LoginComponent, canActivate: [CanActivateViaAuthGuardService]},
   {path: 'connect', component: ConnectComponent, canActivate: []},
-  {path: 'home', component: BannerComponent, canActivate: []},
-  {path: 'profileCard', component: ProfileCardComponent, canActivate: []},
-  {path: 'customerConsent', component: CustomerConsentComponent, canActivate: []},
-  {path: 'fund-navigator', component: FundNavigatorComponent, canActivate: []},
-  {path: 'not-logged-in', component: NotLoggedInComponent, canActivate: []},
+  {path: 'home', component: BannerComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
+  {path: 'profileCard', component: ProfileCardComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
+  {path: 'customerConsent', component: CustomerConsentComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
+  {path: 'userProcedures', component: BannerComponent, canActivate: []},
+  {path: 'fundNavigator', component: FundNavigatorComponent, canActivate: []},
+  {path: '**', component: LoginComponent, canActivate: [CanActivateViaAuthGuardService]}
 
 ];
 

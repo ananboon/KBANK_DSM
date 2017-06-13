@@ -9,3 +9,17 @@
 a {
 	cursor: pointer;
 }
+
+.btn-main {
+  background-color: rgb(10,169,79);
+  color: white;
+}
+
+.btn-main:disabled:hover{
+  background-color: rgb(10,169,79);
+}
+
+.btn-main:hover {
+  background-color: rgb(7,133,61);
+	color: white;
+}

@@ -12,9 +12,15 @@ import { MessageCommunicationService } from '../../services/message-communicatio
 })
 export class BannerComponent{
 
+  nextWording:string = 'เริ่มต้นธุรกรรม';
   constructor(private navigationService: NavigationService, private messageCommunicationService: MessageCommunicationService, private route: ActivatedRoute, private router: Router){}
 
   ngOnInit(){
+    const routeName = this.router.url;
+    if(routeName === '/userProcedures'){
+      this.nextWording = 'ขั้นตอนถัดไป';
+    }
+
     this.messageCommunicationService.bannerComponentSubject.subscribe(
       (message) => {
         console.log(message);
@@ -24,9 +30,27 @@ export class BannerComponent{
     );
   }
 
-  onStartTransaction(){
-    this.messageCommunicationService.sendMessage('banner','startTransaction');
-    this.navigationService.startTransaction();
-    this.router.navigate(['/profileCard']);
+  onNext(){
+    const routeName = this.router.url;
+
+
+
+
+    if(routeName === '/userProcedures'){
+      this.router.navigate(['/fundNavigator']);
+    }else {
+      this.messageCommunicationService.sendMessage('banner','toProfileCard');
+      this.navigationService.startTransaction();
+      this.router.navigate(['/profileCard']);
+    }
   }
+
+  onCarouselMove(direction:string){
+    const message = {
+      component: 'carousel',
+      message: direction
+    }
+    this.messageCommunicationService.sendMessage('banner',message);
+  }
+
 }

@@ -4,7 +4,7 @@
     <div class="col-md-8">
       <div class="row">
         <div class="col-md-6">
-          <img src="../../resources/KBank_Profile.jpg" alt="ProfileCard">
+          <img src="assets/resources/KBank_Profile.jpg" alt="ProfileCard" class="img-responsive img-circle">
         </div>
         <div class="col-md-6">
           {{name}}
@@ -23,7 +23,7 @@
   </div>
   <div class="row text-center vertical-align">
     <div class="col-md-12">
-      <button type="button" class="btn btn-primary" [routerLink]="['/customerConsent']">ขั้นตอนถัดไป</button>
+      <button type="button" class="btn btn-main" (click)="onNext()">ขั้นตอนถัดไป</button>
     </div>
   </div>
 </div>

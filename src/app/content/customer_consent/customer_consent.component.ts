@@ -16,6 +16,6 @@ export class CustomerConsentComponent{
 
   onConsentClick(allowRecording: boolean){
     this.recorderService.record(allowRecording);
-    this.router.navigate(['fund-navigator']);
+    this.router.navigate(['userProcedures']);
   }
 }

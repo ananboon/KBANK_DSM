@@ -1,7 +1,9 @@
 import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { Routes, Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { DOCUMENT } from '@angular/platform-browser';
+
 
 import { MessageCommunicationService } from './services/message-communication.service';
 
@@ -13,7 +15,11 @@ import { MessageCommunicationService } from './services/message-communication.se
 })
 export class AppComponent {
 
-  constructor(@Inject(DOCUMENT) private document: Document, private messageCommunicationService: MessageCommunicationService){}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private messageCommunicationService: MessageCommunicationService,
+    private location: Location
+  ){}
 
   ngOnInit(){
     this.messageCommunicationService.scrollSubject.subscribe((position) => {

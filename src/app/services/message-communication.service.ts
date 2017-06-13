@@ -54,6 +54,14 @@ export class MessageCommunicationService{
       if(message.component === 'scroll'){
         this.scrollSubject.next(message.message);
       }
+
+      if(message.component === 'profile-card'){
+        this.profileCardComponentSubject.next(message.message);
+      }
+
+      if(message.component === 'customerConsent'){
+        this.customerConsentComponentSubject.next(message.message)
+      }
     });
 
 
@@ -64,7 +72,6 @@ export class MessageCommunicationService{
       'component' : component,
       'message': message
     }
-    console.log(message);
     this.socket.emit('message',this.clientToSendTo,message);
   }
 

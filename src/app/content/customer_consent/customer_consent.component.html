@@ -29,7 +29,7 @@
   			  </div>
           <hr>
 
-  				<button type="button" id="customerAccept"  class="btn btn-default btn-primary" [disabled]="!consentForm.valid" (click)="onConsentClick(true)">อนุญาต</button>
+  				<button type="button" id="customerAccept"  class="btn btn-main" [disabled]="!consentForm.valid" (click)="onConsentClick(true)">อนุญาต</button>
   				<button type="button" id="customerDecline"  class="btn btn-danger" [disabled]="!consentForm.valid" (click)="onConsentClick(false)">ไม่อนุญาต</button>
         </div>
       </form>

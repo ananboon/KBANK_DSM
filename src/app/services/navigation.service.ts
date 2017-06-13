@@ -2,13 +2,10 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 
 export class NavigationService{
-  showNavigation = new Subject<boolean>();
+  showUserLoginNavigation = true;
+  showNavigation = true;
 
   startTransaction(){
-    this.showNavigation.next(true);
-  }
-
-  endTransaction(){
-    this.showNavigation.next(false);
+    this.showNavigation = true;
   }
 }

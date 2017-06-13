@@ -1,18 +1,39 @@
-<nav class="navbar navbar-default" *ngIf="showNavigationBar">
-  <div class="container-fluid">
+<nav class="navbar navbar-default " *ngIf="navigationService.showNavigation">
+  <div class="container-fluid vertical-align">
     <div class="container">
       <div class="navbar-header">
         <a class="navbar-brand">Digital Sales Management</a>
       </div>
 
+      <!-- <div>
+        <button type="button" class="btn btn-arrow-right">เริ่มต้นการทำธุรกรรม</button>
+        <button type="button" class="btn btn-arrow-right">ระบุตัวตนลูกค้า<br>และทำแบบประเมิณความเสี่ยง</button>
+        <button type="button" class="btn btn-arrow-right">ประเมิณกองทุน<br>ที่เหมาะสมกับลูกค้า</button>
+        <button type="button" class="btn btn-arrow-right">นำเสนอ Fund Fact Sheet</button>
+        <button type="button" class="btn btn-arrow-right">จบการทำธุรกรรม</button>
+      </div> -->
+
+      <!-- <ul class="nav nav-pills nav-wizard">
+        <li><a >เริ่มต้นการทำธุรกรรม</a></li>
+        <li><a >ระบุตัวตนลูกค้า<br>และทำแบบประเมิณความเสี่ยง</a></li>
+        <li><a >ประเมิณกองทุน<br>ที่เหมาะสมกับลูกค้า</a></li>
+        <li><a >นำเสนอ Fund Fact Sheet</a></li>
+        <li><a >จบการทำธุรกรรม</a></li>
+      </ul> -->
+
       <div class="navbar-default">
-        <ul class="nav navbar-nav">
-          <li><a >เริ่มต้นการทำธุรกรรม</a></li>
-          <li><a >ระบุตัวตนลูกค้า<br>และทำแบบประเมิณความเสี่ยง</a></li>
-          <li><a >ประเมิณกองทุน<br>ที่เหมาะสมกับลูกค้า</a></li>
-          <li><a >นำเสนอ Fund Fact Sheet</a></li>
-          <li><a >จบการทำธุรกรรม</a></li>
+        <ul class="nav navbar-nav" *ngIf="navigationService.showUserLoginNavigation; else notUserLoginNavigation">
+          <li><a >ลงชื่อเข้าใช้</a></li>
         </ul>
+        <ng-template #notUserLoginNavigation>
+          <ul class="nav navbar-nav">
+            <li><a >เริ่มต้นการทำธุรกรรม</a></li>
+            <li><a >ระบุตัวตนลูกค้า<br>และทำแบบประเมิณความเสี่ยง</a></li>
+            <li><a >ประเมิณกองทุน<br>ที่เหมาะสมกับลูกค้า</a></li>
+            <li><a >นำเสนอ Fund Fact Sheet</a></li>
+            <li><a >จบการทำธุรกรรม</a></li>
+          </ul>
+        </ng-template>
       </div>
     </div>
   </div>

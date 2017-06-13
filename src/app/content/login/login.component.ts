@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { UserModel } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { MessageCommunicationService } from '../../services/message-communication.service';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +20,13 @@ export class LoginComponent implements OnInit, OnDestroy{
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private messageCommunicationService: MessageCommunicationService
+    private messageCommunicationService: MessageCommunicationService,
+    private navigationService: NavigationService
   ){}
 
   ngOnInit(){
-
+    
+    this.navigationService.showUserLoginNavigation = true;
   }
 
   onSubmit(){
@@ -35,11 +38,11 @@ export class LoginComponent implements OnInit, OnDestroy{
     this.messageCommunicationService.roomId = this.userService.user.id;
     this.messageCommunicationService.connect();
 
-    this.router.navigate(['/home']);
-  }
+    // Toggle Navigation off when logged in to home page
+    this.navigationService.showUserLoginNavigation = false;
+    this.navigationService.showNavigation = false;
 
-  sendMessageToServer(message:string){
-    this.messageCommunicationService.sendMessage('login',message);
+    this.router.navigate(['/home']);
   }
 
   ngOnDestroy(){
