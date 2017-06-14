@@ -23,3 +23,13 @@ a {
   background-color: rgb(7,133,61);
 	color: white;
 }
+
+.btn-cancel {
+	background-color: rgb(141,146,150);
+	color: white;
+}
+
+.btn-cancel:hover {
+	background-color: rgb(120,126,131);
+	color: white;
+}
