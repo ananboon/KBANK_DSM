@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'customerConsent', component: CustomerConsentComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
   {path: 'userProcedures', component: BannerComponent, canActivate: []},
   {path: 'fundNavigator', component: FundNavigatorComponent, canActivate: []},
-  {path: '**', component: LoginComponent, canActivate: [CanActivateViaAuthGuardService]}
+  {path: '**', component: LoginComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]}
 
 ];
 
