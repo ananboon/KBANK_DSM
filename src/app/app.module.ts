@@ -27,6 +27,8 @@ import { CanActivateHomeToCustomerConsentGuardService } from './services/canacti
 import { AppRoutingModule } from './app-routing.module';
 import { FundNavigatorComponent } from './content/fund-navigator/fund-navigator.component';
 import { NotLoggedInComponent } from './content/not-logged-in/not-logged-in.component';
+import { CustomerCheckDocsComponent } from './content/customer-check-docs/customer-check-docs.component';
+import { PaymentAndConfirmComponent } from './content/payment-and-confirm/payment-and-confirm.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { NotLoggedInComponent } from './content/not-logged-in/not-logged-in.comp
     ConnectComponent,
     CustomerConsentComponent,
     FundNavigatorComponent,
-    NotLoggedInComponent
+    NotLoggedInComponent,
+    CustomerCheckDocsComponent,
+    PaymentAndConfirmComponent
   ],
   imports: [
     BrowserModule,

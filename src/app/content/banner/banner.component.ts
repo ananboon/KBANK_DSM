@@ -33,13 +33,10 @@ export class BannerComponent{
   onNext(){
     const routeName = this.router.url;
 
-
-
-
     if(routeName === '/userProcedures'){
       this.router.navigate(['/fundNavigator']);
     }else {
-      this.messageCommunicationService.sendMessage('banner','toProfileCard');
+      //this.messageCommunicationService.sendMessage('banner','toProfileCard');
       this.navigationService.startTransaction();
       this.router.navigate(['/profileCard']);
     }

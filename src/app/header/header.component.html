@@ -4,7 +4,7 @@
       <img src="/assets/resources/KBank_Logo.png" alt="Kbank Logo" class="img-responsive">
     </div>
     <div class="col-md-8">
-      <div class="text-center">
+      <div class="text-center" *ngIf="!isMobile">
         ขณะนี้กำลังดำเนินการให้กับลูกค้า xxx อยู่
       </div>
     </div>
@@ -13,7 +13,7 @@
         <span *ngIf="userInfoHasData">
           {{id}} : {{name}}
         </span>
-        <app-menu></app-menu>
+        <app-menu *ngIf="!isMobile"></app-menu>
       </div>
     </div>
   </div>

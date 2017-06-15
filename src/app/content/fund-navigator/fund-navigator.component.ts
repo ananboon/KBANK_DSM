@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fund-navigator',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FundNavigatorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+
+  }
+
+  onNext(){
+    this.router.navigate(['/customerCheckDocs']);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-
+import { Ng2DeviceService } from 'ng2-device-detector';
 
 import { UserModel } from '../models/user.model';
 import { UserService } from '../services/user.service';
@@ -16,9 +16,11 @@ export class HeaderComponent implements OnInit{
   userInfoHasData = false;
   id:string = '';
   name:string = '';
+  isMobile;
 
   constructor(
     private userService: UserService,
+    private deviceService: Ng2DeviceService
   ){}
 
   ngOnInit(){
@@ -29,6 +31,8 @@ export class HeaderComponent implements OnInit{
         this.userInfoHasData = true;
       }
     );
+
+    this.isMobile = this.deviceService.device !== 'unknown';
   }
 
   ngOnDestroy(){

@@ -25,22 +25,20 @@ export class LoginComponent implements OnInit, OnDestroy{
   ){}
 
   ngOnInit(){
-    
     this.navigationService.showUserLoginNavigation = true;
   }
 
   onSubmit(){
     const username:string = this.loginForm.value.username;
     const password:string = this.loginForm.value.password;
+    const role = 'RowCounter';
     this.userService.logIn(username, password);
-
+    const roomId = this.userService.user.id;
     // Connect to the room with Id
-    this.messageCommunicationService.roomId = this.userService.user.id;
-    this.messageCommunicationService.connect();
+    this.messageCommunicationService.connect(role,roomId);
 
     // Toggle Navigation off when logged in to home page
-    this.navigationService.showUserLoginNavigation = false;
-    this.navigationService.showNavigation = false;
+    this.navigationService.disableNavBarAndUserLoginNavigation();
 
     this.router.navigate(['/home']);
   }

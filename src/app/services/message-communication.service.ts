@@ -10,7 +10,7 @@ Injectable()
 export class MessageCommunicationService{
   public roomId: string;
   public clientToSendTo;
-  private url = 'http://localhost:8080';
+  private url = 'http://192.168.1.178:8080';
   private socket;
   private role;
   private userService:UserService;
@@ -23,18 +23,17 @@ export class MessageCommunicationService{
 
   constructor(){}
 
-  connect(){
+  connect(role,roomId){
+
+    this.role = role;
+    this.roomId = roomId;
     this.socket = io(this.url);
 
     // Create Room with the user id
-    this.socket.emit('joinRoom',this.roomId);
-
-    // Receive from server
-    this.socket.on('setRole', (role) => {
-      this.role = role;
-    });
-
+    this.socket.emit('joinRoom',role,this.roomId);
+    
     this.socket.on('getRoomStatus', (status) => {
+      console.log(status);
       // Need to inform user room is full
     });
 

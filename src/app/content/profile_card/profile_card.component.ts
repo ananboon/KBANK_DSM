@@ -30,15 +30,15 @@ export class ProfileCardComponent implements OnInit{
     this.location = this.userService.user.location;
     this.id = this.userService.user.id;
 
-    this.messageCommunicationService.profileCardComponentSubject.subscribe(
-      (message) => {
-        this.router.navigate(['customerConsent']);
-      }
-    );
+    // this.messageCommunicationService.profileCardComponentSubject.subscribe(
+    //   (message) => {
+    //     this.router.navigate(['customerConsent']);
+    //   }
+    // );
   }
 
   onNext(){
-    this.messageCommunicationService.sendMessage('profile-card','toCustomerConsent');
+    // this.messageCommunicationService.sendMessage('profile-card','toCustomerConsent');
     this.router.navigate(['/customerConsent']);
   }
 

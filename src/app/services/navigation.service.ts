@@ -8,4 +8,9 @@ export class NavigationService{
   startTransaction(){
     this.showNavigation = true;
   }
+
+  disableNavBarAndUserLoginNavigation(){
+    this.showNavigation = false;
+    this.showUserLoginNavigation = false;
+  }
 }
