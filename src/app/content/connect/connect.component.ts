@@ -27,12 +27,12 @@ export class ConnectComponent implements OnInit, OnDestroy{
   onConnect(){
     const role = 'Customer'
     const roomId = this.roomId.nativeElement.value;
-    // this.messageCommunicationService.connect(role,roomId);
-    // test
+    this.messageCommunicationService.connect(role,roomId);
+
     this.userService.logIn('a', 'a');
 
     this.navigationService.disableNavBarAndUserLoginNavigation();
-    
+
     this.router.navigate(['/home']);
   }
 

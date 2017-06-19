@@ -4,13 +4,14 @@ import { Subject } from 'rxjs/Subject';
 import * as io from 'socket.io-client';
 
 import { UserService } from './user.service';
+import { MessageModel } from '../models/message.model'
 
 
 Injectable()
 export class MessageCommunicationService{
   public roomId: string;
   public clientToSendTo;
-  private url = 'http://192.168.1.178:8080';
+  private url = 'http://172.20.10.4:8080';
   private socket;
   private role;
   private userService:UserService;
@@ -29,49 +30,46 @@ export class MessageCommunicationService{
     this.roomId = roomId;
     this.socket = io(this.url);
 
-    // Create Room with the user id
-    this.socket.emit('joinRoom',role,this.roomId);
-    
-    this.socket.on('getRoomStatus', (status) => {
-      console.log(status);
-      // Need to inform user room is full
-    });
+    const message = new MessageModel();
+    message.component = 'joinRoom';
+    message.message = {
+      role: role,
+      roomId: roomId
+    }
 
-    // Recieve from other client
-    this.socket.on('setClientToSendTo', (clientId) => {
-      this.clientToSendTo = clientId;
+    this.socket.emit('message',message);
 
-      // Sync windows scroll on connect
-      this.scrollSubject.next('startScrollCapture');
-    });
+    this.socket.on('message',(message) => {
+      console.log(message);
+      if(message.component === 'getRoomStatus'){
+        // Inform user room is full
+        console.log(message.message);
+      }else if(message.component === 'setClientToSendTo'){
 
-    this.socket.on('message', (message) => {
-      if(message.component === 'banner'){
+        this.clientToSendTo = message.message;
+
+      }else if(message.component === 'banner'){
+
         this.bannerComponentSubject.next(message.message);
-      }
+      }else if(message.component === 'scroll'){
 
-      if(message.component === 'scroll'){
-        this.scrollSubject.next(message.message);
-      }
+      }else if(message.component === 'profile-card'){
 
-      if(message.component === 'profile-card'){
-        this.profileCardComponentSubject.next(message.message);
-      }
+        this.profileCardComponentSubject.next(message.message)
+      }else if(message.component === 'customer-consent'){
 
-      if(message.component === 'customerConsent'){
-        this.customerConsentComponentSubject.next(message.message)
+        this.customerConsentComponentSubject.next(message.message);
       }
     });
-
-
   }
 
   sendMessage(component, message) {
-    message = {
-      'component' : component,
-      'message': message
-    }
-    this.socket.emit('message',this.clientToSendTo,message);
+    const messageToSend = new MessageModel();
+    messageToSend.clientId = this.clientToSendTo;
+    messageToSend.component = component;
+    messageToSend.message = message;
+
+    this.socket.emit('message',messageToSend);
   }
 
   ngOnDestroy(){

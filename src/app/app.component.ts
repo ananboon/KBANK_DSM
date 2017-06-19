@@ -22,8 +22,8 @@ export class AppComponent {
   ){}
 
   ngOnInit(){
-    this.messageCommunicationService.scrollSubject.subscribe((position) => {
-      this.document.body.scrollTop = +position;
+    const promise = new Promise((resolve,reject) => {
+
     });
   }
 
