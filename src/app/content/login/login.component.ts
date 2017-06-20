@@ -32,14 +32,17 @@ export class LoginComponent implements OnInit, OnDestroy{
     const username:string = this.loginForm.value.username;
     const password:string = this.loginForm.value.password;
     const role = 'RowCounter';
-    this.userService.logIn(username, password);
-    const roomId = this.userService.user.id;
+
+    // this.userService.logIn(username, password);
+
     // Connect to the room with Id
-    this.messageCommunicationService.connect(role,roomId);
+    this.messageCommunicationService.login(role,username,password);
 
     // Toggle Navigation off when logged in to home page
-    this.navigationService.disableNavBarAndUserLoginNavigation();
 
+    // User promise
+    // When user has data then move on to the next page
+    this.navigationService.disableNavBarAndUserLoginNavigation();
     this.router.navigate(['/home']);
   }
 

@@ -11,7 +11,7 @@ Injectable()
 export class MessageCommunicationService{
   public roomId: string;
   public clientToSendTo;
-  private url = 'http://172.20.10.4:8080';
+  private url = 'http://192.168.1.182:8080';
   private socket;
   private role;
   private userService:UserService;
@@ -21,11 +21,27 @@ export class MessageCommunicationService{
   public profileCardComponentSubject = new Subject();
   public bannerComponentSubject = new Subject();
 
-
   constructor(){}
 
-  connect(role,roomId){
+  login(role,username,password){
+    this.role = role;
+    const user = username;
+    const pass = password;
 
+    this.socket.io(this.url);
+
+    const message = new MessageModel();
+    message.component = 'login';
+    message.message = {
+      username: user,
+      password: pass
+    };
+
+    this.socket.emit('message',message);
+    this.registerCallbacks();
+  }
+
+  connect(role,roomId){
     this.role = role;
     this.roomId = roomId;
     this.socket = io(this.url);
@@ -38,26 +54,26 @@ export class MessageCommunicationService{
     }
 
     this.socket.emit('message',message);
+    this.registerCallbacks();
+  }
+
+  registerCallbacks(){
 
     this.socket.on('message',(message) => {
-      console.log(message);
       if(message.component === 'getRoomStatus'){
         // Inform user room is full
         console.log(message.message);
       }else if(message.component === 'setClientToSendTo'){
-
+        // Set id of the client to send to
         this.clientToSendTo = message.message;
 
       }else if(message.component === 'banner'){
-
         this.bannerComponentSubject.next(message.message);
       }else if(message.component === 'scroll'){
 
       }else if(message.component === 'profile-card'){
-
         this.profileCardComponentSubject.next(message.message)
       }else if(message.component === 'customer-consent'){
-
         this.customerConsentComponentSubject.next(message.message);
       }
     });
@@ -68,7 +84,6 @@ export class MessageCommunicationService{
     messageToSend.clientId = this.clientToSendTo;
     messageToSend.component = component;
     messageToSend.message = message;
-
     this.socket.emit('message',messageToSend);
   }
 
