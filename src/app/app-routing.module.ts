@@ -19,16 +19,19 @@ import { NotLoggedInComponent } from './content/not-logged-in/not-logged-in.comp
 import { CanActivateViaAuthGuardService } from './services/canactivate-via-auth-guard.service';
 import { CanActivateHomeToCustomerConsentGuardService } from './services/canactivate-home-to-customer-consent-guard.service';
 
+import * as globals from './globals';
+
+// Change the name corresponding to globals
 const routes: Routes = [
-  {path: 'login', component: LoginComponent, canActivate: [CanActivateViaAuthGuardService]},
-  {path: 'connect', component: ConnectComponent, canActivate: []},
-  {path: 'home', component: BannerComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
-  {path: 'profileCard', component: ProfileCardComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
-  {path: 'customerConsent', component: CustomerConsentComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
-  {path: 'userProcedures', component: BannerComponent, canActivate: []},
-  {path: 'fundNavigator', component: FundNavigatorComponent, canActivate: []},
-  {path: 'customerCheckDocs', component: CustomerCheckDocsComponent, canActivate: []},
-  {path: 'paymentAndConfirm', component: PaymentAndConfirmComponent, canActivate: []},
+  {path: globals.LOGIN, component: LoginComponent, canActivate: [CanActivateViaAuthGuardService]},
+  {path: globals.CONNECT, component: ConnectComponent, canActivate: []},
+  {path: globals.HOME, component: BannerComponent, canActivate: []},
+  {path: globals.PROFILE_CARD, component: ProfileCardComponent, canActivate: []},
+  {path: globals.CUSTOMER_CONSENT, component: CustomerConsentComponent, canActivate: []},
+  {path: globals.ROWCOUNTER_PROCEDURES, component: BannerComponent, canActivate: []},
+  {path: globals.FUND_NAVIGATOR, component: FundNavigatorComponent, canActivate: []},
+  {path: globals.ROWCOUNTER_UD, component: CustomerCheckDocsComponent, canActivate: []},
+  {path: globals.CUSTOMER_CHECK, component: PaymentAndConfirmComponent, canActivate: []},
   {path: '**', component: LoginComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]}
 
 ];

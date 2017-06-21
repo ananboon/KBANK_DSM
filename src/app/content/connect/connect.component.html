@@ -11,6 +11,7 @@
         <input type="text" class="form-control" name="connectInput" #roomId>
         <button type="button" class="btn btn-main" (click)="onConnect()">เชื่อมต่อ</button>
       </div>
+      <p *ngIf="errorRoom">{{errorMessage}}</p>
     </div>
     <div class="col-md-4"></div>
   </div>

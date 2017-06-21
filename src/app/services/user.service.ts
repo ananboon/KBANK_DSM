@@ -1,21 +1,20 @@
-import { OnInit } from '@angular/core';
+import { Injectable,OnInit } from '@angular/core';
 import { Subject} from 'rxjs/Subject';
 
 import { UserModel } from '../models/user.model'
 
+@Injectable()
 export class UserService {
   userLoggedInSubject = new Subject<UserModel>();
   user: UserModel = null;
 
-  setUser(userInfo: UserModel){
-    this.user = userInfo;
-  }
+  setUser(message){
+    const id = message.id;
+    const name = message.firstname + ' ' + message.lastname;
+    const position = message.position;
+    const location = message.location;
+    this.user = new UserModel(id,name,position,location);
 
-  logIn(userName:string, password:string){
-
-    // Query Database to fetch user data
-
-    this.user = new UserModel('1','กสิกร รักไทย','head of everything','BE8');
     this.userLoggedInSubject.next(this.user);
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, HostListener } from '@angular/core';
 import { Routes, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
@@ -13,7 +13,7 @@ import { MessageCommunicationService } from './services/message-communication.se
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -22,16 +22,22 @@ export class AppComponent {
   ){}
 
   ngOnInit(){
-    const promise = new Promise((resolve,reject) => {
 
-    });
   }
 
-  @HostListener("window:scroll", [''])
-  onWindowScroll(){
-    const position = this.document.body.scrollTop;
-    if(this.messageCommunicationService.clientToSendTo != undefined){
-      this.messageCommunicationService.sendMessage('scroll',position);
-    }
+  ngOnDestroy(){
+
   }
+
+  // @HostListener('window:popstate',['$event'])
+  // onPopState(event){
+  //
+  // }
+  // @HostListener("window:scroll", [''])
+  // onWindowScroll(){
+  //   const position = this.document.body.scrollTop;
+  //   if(this.messageCommunicationService.clientToSendTo != undefined){
+  //     this.messageCommunicationService.sendMessage('scroll',position);
+  //   }
+  // }
 }
