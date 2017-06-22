@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { MessageCommunicationService } from '../../services/message-communication.service';
+
+import * as globals from '../../globals';
+
 @Component({
   selector: 'app-fund-navigator',
   templateUrl: './fund-navigator.component.html',
@@ -8,14 +12,25 @@ import { Router } from '@angular/router';
 })
 export class FundNavigatorComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private messageCommunicationService: MessageCommunicationService
+  ){}
 
   ngOnInit() {
-
+    this.messageCommunicationService.fundNavigatorComponentSubject.subscribe(
+      (message) => {
+        this.router.navigate(['/'+globals.ROWCOUNTER_UD]);
+      }
+    );
   }
 
   onNext(){
-    this.router.navigate(['/customerCheckDocs']);
+    const component = globals.FUND_NAVIGATOR;
+    const message = globals.TO_ROWCOUNTER_UD;
+
+    this.messageCommunicationService.sendMessage(component,message);
+    this.router.navigate(['/'+globals.ROWCOUNTER_UD]);
   }
 
 }

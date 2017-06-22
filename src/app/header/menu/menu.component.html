@@ -3,12 +3,30 @@
     <span class="glyphicon glyphicon-menu-hamburger"></span>
   </button>
   <ul class="dropdown-menu dropdown-menu-right" role="menu">
-      <li><a data-toggle="modal" data-target="#stopRecordingModal">หยุดการบันทึกภาพและเสียง</a></li>
+      <li *ngIf="showStopRecorder"><a data-toggle="modal" data-target="#stopRecordingModal">หยุดการบันทึกภาพและเสียง</a></li>
       <li><a data-toggle="modal" data-target="#logoutModal">ออกจากระบบ</a></li>
-      <!-- <button type="button" class="btn btn-info btn-lg"  >Open Modal</button> -->
   </ul>
 
-  <!-- Logout Modal -->
+  <!-- <ul class="dropdown-menu dropdown-menu-right" role="menu">
+      <li *ngIf="showStopRecorder"><a >หยุดการบันทึกภาพและเสียง</a></li>
+      <li><a (click)="onOpenLogout()">ออกจากระบบ</a></li>
+  </ul> -->
+
+  <!-- logout Modal -->
+  <!-- <modal #myModal>
+      <modal-header>
+          <h4 class="modal-title">I'm a modal!</h4>
+      </modal-header>
+      <modal-body>
+          Hello World!
+      </modal-body>
+      <modal-footer>
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="modal.close()">Ok</button>
+      </modal-footer>
+  </modal> -->
+
+  <!-- Logout Modal 2 -->
   <div id="stopRecordingModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
@@ -18,7 +36,7 @@
           <h4 class="modal-title">Stop Recording</h4>
         </div>
         <div class="modal-body text-center">
-          <p>กรุณายืนยันการหยุดบันทึกภาพอละเสียง</p>
+          <p>กรุณายืนยันการหยุดบันทึกภาพและเสียง</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-main" data-dismiss="modal">ยืนยัน</button>

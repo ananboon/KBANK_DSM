@@ -4,33 +4,39 @@
     <div class="col-md-8">
       <form class="text-center" #consentForm="ngForm">
         <div class="form-inline">
-          <label class="sr-only" for="accountName">ชื่อ</label>
+          <label class="sr-only" for="accountname">ชื่อ</label>
   			  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
   			  	<input
               type="text"
               class="form-control mb-2 mr-sm-2 mb-sm-0"
-              id="accountName"
-              name="accountName"
+              id="accountname"
+              name="accountname"
               placeholder="ชื่อ - นามสกุล"
               ngModel
-              required>
+              required
+              (ngModelChange)="onNameChange($event)"
+              [disabled]="disableName"
+              #accountName>
   			  </div>
 
-  			  <label class="sr-only" for="accountSurname">นามสกุล</label>
+  			  <label class="sr-only" for="accountcis">นามสกุล</label>
   			  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
   			    <input
               type="text"
               class="form-control"
-              id="accountSurname"
-              name="accountSurname"
+              id="accountcis"
+              name="accountcis"
               placeholder="CIS"
               ngModel
-              required>
+              required
+              (ngModelChange)="onCISChange($event)"
+              [disabled]="disableCIS"
+              #accountCIS>
   			  </div>
           <hr>
 
-  				<button type="button" id="customerAccept"  class="btn btn-main" [disabled]="!consentForm.valid" (click)="onConsentClick(true)">อนุญาต</button>
-  				<button type="button" id="customerDecline"  class="btn btn-cancel" [disabled]="!consentForm.valid" (click)="onConsentClick(false)">ไม่อนุญาต</button>
+  				<button type="button" id="customerAccept"  class="btn btn-main" [disabled]="nameNull || cisNull" (click)="onConsentClick(true)">อนุญาต</button>
+  				<button type="button" id="customerDecline"  class="btn btn-cancel" [disabled]="nameNull || cisNull" (click)="onConsentClick(false)">ไม่อนุญาต</button>
         </div>
       </form>
 

@@ -31,6 +31,8 @@ export class ConnectComponent implements OnInit, OnDestroy{
         const status = ''+message.message;
         this.errorMessage = status;
         this.errorRoom = true;
+      }else if(message.component === globals.USER_DATA){
+        this.userService.setUser(message.message);
       }else if(message.component === globals.SET_CLIENT_ID_TO_SEND_TO){
         this.navigationService.disableNavBarAndUserLoginNavigation();
         this.router.navigate(['/'+globals.HOME]);
@@ -45,6 +47,6 @@ export class ConnectComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(){
-
+    this.messageCommunicationService.connectSubject.unsubscribe();
   }
 }

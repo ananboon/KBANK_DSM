@@ -1,21 +1,89 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { Ng2DeviceService } from 'ng2-device-detector';
 
-import { RecorderService } from '../../services/recorder.service'
+import { MessageCommunicationService } from '../../services/message-communication.service';
+import { RecorderService } from '../../services/recorder.service';
+
+import * as globals from '../../globals';
 
 @Component({
   selector: 'app-customer-consent',
   templateUrl: './customer_consent.component.html',
   styleUrls: ['./customer_consent.component.css']
 })
-export class CustomerConsentComponent{
+export class CustomerConsentComponent implements OnInit{
   @ViewChild('consentForm') consentForm: NgForm;
+  @ViewChild('accountName') accountName: ElementRef;
+  @ViewChild('accountCIS') accountCIS: ElementRef;
 
-  constructor(private recorderService: RecorderService, private route: ActivatedRoute, private router: Router){}
+  disableName = false;
+  disableCIS = false;
+
+  nameNull = true;
+  cisNull = true;
+
+
+  constructor(
+    private recorderService: RecorderService,
+    private messageCommunicationService: MessageCommunicationService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private deviceService: Ng2DeviceService
+  ){}
+
+  ngOnInit(){
+    if(this.deviceService.device !== globals.UNKNOWN){
+      this.disableName = true;
+      this.disableCIS = true;
+    }
+    this.messageCommunicationService.customerConsentComponentSubject.subscribe(
+      (message) => {
+        const body = message.message;
+        if(body === globals.TO_ROWCOUNTER_PROCEDURE){
+          this.router.navigate(['/'+globals.ROWCOUNTER_PROCEDURES]);
+        }else if(body === globals.START_RECORDING){
+          this.recorderService.record();
+        }else if(body.component === 'account-name'){
+          this.nameNull = body.message === '';
+          this.accountName.nativeElement.value = body.message;
+        }else if(body.component === 'account-cis'){
+          this.cisNull = body.message === '';
+          this.accountCIS.nativeElement.value = body.message;
+        }
+      }
+    );
+  }
+
+  onNameChange(event){
+    const component = globals.CUSTOMER_CONSENT;
+    const message = {
+      component: 'account-name',
+      message: event
+    };
+    this.messageCommunicationService.sendMessage(component,message);
+  }
+
+  onCISChange(event){
+    const component = globals.CUSTOMER_CONSENT;
+    const message = {
+      component: 'account-cis',
+      message: event
+    };
+    this.messageCommunicationService.sendMessage(component,message);
+  }
 
   onConsentClick(allowRecording: boolean){
-    this.recorderService.record(allowRecording);
-    this.router.navigate(['userProcedures']);
+    const component = globals.CUSTOMER_CONSENT;
+    if(allowRecording){
+      const message = globals.START_RECORDING;
+      this.messageCommunicationService.sendMessage(component,message);
+    }
+
+    const message = globals.TO_ROWCOUNTER_PROCEDURE;
+
+    this.messageCommunicationService.sendMessage(component,message);
+    this.router.navigate(['/'+globals.ROWCOUNTER_PROCEDURES]);
   }
 }

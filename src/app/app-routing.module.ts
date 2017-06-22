@@ -12,9 +12,8 @@ import { ProfileCardComponent } from './content/profile_card/profile_card.compon
 import { ConnectComponent } from './content/connect/connect.component';
 import { CustomerConsentComponent } from './content/customer_consent/customer_consent.component';
 import { FundNavigatorComponent } from './content/fund-navigator/fund-navigator.component';
-import { CustomerCheckDocsComponent } from './content/customer-check-docs/customer-check-docs.component';
-import { PaymentAndConfirmComponent } from './content/payment-and-confirm/payment-and-confirm.component';
-import { NotLoggedInComponent } from './content/not-logged-in/not-logged-in.component';
+import { RowCounterUDComponent } from './content/rowcounter-ud/rowcounter-ud.component';
+import { EndTransactionConfirmationComponent } from './content/end-transaction-confirmation/end-transaction-confirmation.component';
 
 import { CanActivateViaAuthGuardService } from './services/canactivate-via-auth-guard.service';
 import { CanActivateHomeToCustomerConsentGuardService } from './services/canactivate-home-to-customer-consent-guard.service';
@@ -30,8 +29,8 @@ const routes: Routes = [
   {path: globals.CUSTOMER_CONSENT, component: CustomerConsentComponent, canActivate: []},
   {path: globals.ROWCOUNTER_PROCEDURES, component: BannerComponent, canActivate: []},
   {path: globals.FUND_NAVIGATOR, component: FundNavigatorComponent, canActivate: []},
-  {path: globals.ROWCOUNTER_UD, component: CustomerCheckDocsComponent, canActivate: []},
-  {path: globals.CUSTOMER_CHECK, component: PaymentAndConfirmComponent, canActivate: []},
+  {path: globals.ROWCOUNTER_UD, component: RowCounterUDComponent, canActivate: []},
+  {path: globals.END_TRANSACTION, component: EndTransactionConfirmationComponent, canActivate: []},
   {path: '**', component: LoginComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]}
 
 ];

@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy{
   ){}
 
   ngOnInit(){
+
     this.navigationService.showUserLoginNavigation = true;
     // When user has data then move on to the next page
     this.messageCommunicationService.loginSubject.subscribe((message) => {
@@ -54,6 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(){
-    this.messageCommunicationService.loginSubject.unsubscribe();
+    
+    // this.messageCommunicationService.loginSubject.unsubscribe();
   }
 }

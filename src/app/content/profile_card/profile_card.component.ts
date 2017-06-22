@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs/Subscription';
+import { Ng2DeviceService } from 'ng2-device-detector';
 
 import { UserService } from '../../services/user.service';
-import { MessageCommunicationService } from '../../services/message-communication.service'
+import { MessageCommunicationService } from '../../services/message-communication.service';
+
+import * as globals from '../../globals';
 
 @Component({
   selector: 'app-profile-card',
@@ -17,11 +20,14 @@ export class ProfileCardComponent implements OnInit{
   location:string = '';
   id:string = '';
 
+  isMobile = this.deviceService.device !== globals.UNKNOWN;
+
   constructor(
     private userService: UserService,
     private messageCommunicationService: MessageCommunicationService,
     private router: Router,
-    private locationRoute: Location
+    private locationRoute: Location,
+    private deviceService: Ng2DeviceService
   ){}
 
   ngOnInit(){
@@ -30,19 +36,19 @@ export class ProfileCardComponent implements OnInit{
     this.location = this.userService.user.location;
     this.id = this.userService.user.id;
 
-    // this.messageCommunicationService.profileCardComponentSubject.subscribe(
-    //   (message) => {
-    //     this.router.navigate(['customerConsent']);
-    //   }
-    // );
+    this.messageCommunicationService.profileCardComponentSubject.subscribe(
+      (message) => {
+        if(message.message === globals.TO_CUSTOMER_CONSENT){
+          this.router.navigate(['/'+globals.CUSTOMER_CONSENT]);
+        }
+      }
+    );
   }
 
   onNext(){
-    // this.messageCommunicationService.sendMessage('profile-card','toCustomerConsent');
-    this.router.navigate(['/customerConsent']);
-  }
-
-  onBack(){
-    this.locationRoute.back();
+    const component = globals.PROFILE_CARD;
+    const message = globals.TO_CUSTOMER_CONSENT;
+    this.messageCommunicationService.sendMessage(component,message);
+    this.router.navigate(['/'+globals.CUSTOMER_CONSENT]);
   }
 }
