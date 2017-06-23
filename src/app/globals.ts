@@ -14,6 +14,7 @@ export const SET_CLIENT_ID_TO_SEND_TO = 'set-client-id-to-send-to';
 export const MENU = 'menu';
 export const RECORDER = 'recorder';
 export const LOGIN = 'login';
+export const LOGOUT = 'logout';
 export const CONNECT = 'connect';
 export const HOME = 'home';
 export const BANNER = 'banner';

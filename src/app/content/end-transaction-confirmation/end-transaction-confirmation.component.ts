@@ -8,6 +8,8 @@ import { RecorderService } from '../../services/recorder.service';
 
 import * as globals from '../../globals';
 
+declare var jQuery:any;
+
 @Component({
   selector: 'app-end-transaction-confirmation',
   templateUrl: './end-transaction-confirmation.component.html',
@@ -39,7 +41,8 @@ export class EndTransactionConfirmationComponent implements OnInit {
     const message = globals.TO_HOME;
 
     this.messageCommunicationService.sendMessage(component,message);
-    
+
+    // jQuery("#stopRecordingModal").modal('show');
     this.navigationService.disableNavBarAndUserLoginNavigation();
     this.router.navigate(['/'+globals.HOME]);
   }

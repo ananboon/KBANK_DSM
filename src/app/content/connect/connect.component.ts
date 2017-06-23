@@ -26,6 +26,9 @@ export class ConnectComponent implements OnInit, OnDestroy{
   ){}
 
   ngOnInit(){
+    this.navigationService.showNavigation = true;
+    this.navigationService.showUserLoginNavigation = true;
+
     this.messageCommunicationService.connectSubject.subscribe((message) => {
       if(message.component === globals.GET_ROOM_STATUS){
         const status = ''+message.message;
@@ -47,6 +50,6 @@ export class ConnectComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(){
-    this.messageCommunicationService.connectSubject.unsubscribe();
+    
   }
 }

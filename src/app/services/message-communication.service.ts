@@ -19,6 +19,7 @@ export class MessageCommunicationService{
   public loginSubject = new Subject<MessageModel>();
   public connectSubject = new Subject<MessageModel>();
   public recorderSubject = new Subject<MessageModel>();
+  public logoutSubject = new Subject<MessageModel>();
 
   public bannerComponentSubject = new Subject<MessageModel>();
   public profileCardComponentSubject = new Subject<MessageModel>();
@@ -87,6 +88,8 @@ export class MessageCommunicationService{
         this.rowCounterUDComponentSubject.next(message);
       }else if(message.component === globals.END_TRANSACTION){
         this.endTransactionComponentSubject.next(message);
+      }else if(message.component === globals.LOGOUT){
+        this.logoutSubject.next(message);
       }
     });
   }

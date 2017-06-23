@@ -1,3 +1,9 @@
 .row {
   padding: 10px;
 }
+
+.img-responsive {
+  padding: 10px;
+  min-height: 30vh;
+  max-height: 60vh;
+}
