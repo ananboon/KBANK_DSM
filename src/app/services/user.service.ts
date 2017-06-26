@@ -24,5 +24,6 @@ export class UserService {
 
   logOut(){
     this.user = null;
+    this.userLoggedInSubject.next(null);
   }
 }

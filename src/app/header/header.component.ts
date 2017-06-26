@@ -12,30 +12,33 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit{
-  userInfoSubscription = new Subscription();
-  userInfoHasData = false;
-  id:string = '';
-  name:string = '';
-  isMobile;
-
   constructor(
     private userService: UserService,
     private deviceService: Ng2DeviceService
   ){}
 
+  userInfoSubscription = new Subscription();
+  userInfoHasData = false;
+  id:string = '';
+  name:string = '';
+
   ngOnInit(){
-    this.userInfoSubscription = this.userService.userLoggedInSubject.subscribe(
+    this.userService.userLoggedInSubject.subscribe(
       (user: UserModel) => {
-        this.id = user.id;
-        this.name = user.name;
-        this.userInfoHasData = true;
+        if(user !== null){
+          this.id = user.id;
+          this.name = user.name;
+          this.userInfoHasData = true;
+        }else{
+          this.id = null;
+          this.name = null;
+          this.userInfoHasData = false;
+        }
       }
     );
-
-    this.isMobile = this.deviceService.device !== 'unknown';
   }
 
   ngOnDestroy(){
-    this.userInfoSubscription.unsubscribe();
+
   }
 }

@@ -6,6 +6,7 @@ import { Ng2DeviceService } from 'ng2-device-detector';
 
 import { UserService } from '../../services/user.service';
 import { MessageCommunicationService } from '../../services/message-communication.service';
+import { MessageModel } from '../../models/message.model';
 
 import * as globals from '../../globals';
 
@@ -31,6 +32,8 @@ export class ProfileCardComponent implements OnInit{
   ){}
 
   ngOnInit(){
+    this.messageCommunicationService.setBackgroundOverlay(false);
+
     this.name = this.userService.user.name;
     this.position = this.userService.user.position;
     this.location = this.userService.user.location;
@@ -46,6 +49,8 @@ export class ProfileCardComponent implements OnInit{
   }
 
   onNext(){
+    this.messageCommunicationService.setBackgroundOverlay(true);
+
     const component = globals.PROFILE_CARD;
     const message = globals.TO_CUSTOMER_CONSENT;
     this.messageCommunicationService.sendMessage(component,message);

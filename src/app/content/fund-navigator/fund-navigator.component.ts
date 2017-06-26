@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { MessageCommunicationService } from '../../services/message-communication.service';
 
+import { MessageModel } from '../../models/message.model';
+
 import * as globals from '../../globals';
 
 @Component({
@@ -18,6 +20,8 @@ export class FundNavigatorComponent implements OnInit {
   ){}
 
   ngOnInit() {
+    this.messageCommunicationService.setBackgroundOverlay(false);
+
     this.messageCommunicationService.fundNavigatorComponentSubject.subscribe(
       (message) => {
         this.router.navigate(['/'+globals.ROWCOUNTER_UD]);
@@ -26,6 +30,8 @@ export class FundNavigatorComponent implements OnInit {
   }
 
   onNext(){
+    this.messageCommunicationService.setBackgroundOverlay(true);
+
     const component = globals.FUND_NAVIGATOR;
     const message = globals.TO_ROWCOUNTER_UD;
 

@@ -7,6 +7,8 @@ import { NavigationService } from '../../services/navigation.service';
 import { MessageCommunicationService } from '../../services/message-communication.service'
 import { UserService } from '../../services/user.service';
 
+import { MessageModel } from '../../models/message.model';
+
 import * as globals from '../../globals';
 
 @Component({
@@ -15,9 +17,6 @@ import * as globals from '../../globals';
   styleUrls: ['./banner.component.css']
 })
 export class BannerComponent{
-
-
-
   constructor(
     private navigationService: NavigationService,
     private messageCommunicationService: MessageCommunicationService,
@@ -31,8 +30,9 @@ export class BannerComponent{
   nextWording:string = globals.START_TRANSACTION;
 
   ngOnInit(){
-    const routeName = this.router.url;
+    this.messageCommunicationService.setBackgroundOverlay(false);
 
+    const routeName = this.router.url;
     if(routeName === ('/'+globals.ROWCOUNTER_PROCEDURES)){
       this.nextWording = globals.NEXT;
     }
@@ -53,6 +53,8 @@ export class BannerComponent{
   }
 
   onNext(){
+    this.messageCommunicationService.setBackgroundOverlay(true);
+
     const routeName = this.router.url;
     const component = globals.BANNER;
     if(routeName === ('/'+globals.HOME)){

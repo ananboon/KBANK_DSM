@@ -28,6 +28,8 @@ export class EndTransactionConfirmationComponent implements OnInit {
   ){}
 
   ngOnInit() {
+    this.messageCommunicationService.setBackgroundOverlay(false);
+
     this.messageCommunicationService.endTransactionComponentSubject.subscribe(
       (message) => {
         this.navigationService.disableNavBarAndUserLoginNavigation();
@@ -37,14 +39,12 @@ export class EndTransactionConfirmationComponent implements OnInit {
   }
 
   onEndTransaction(){
-    const component = globals.END_TRANSACTION;
-    const message = globals.TO_HOME;
+    // this.messageCommunicationService.setBackgroundOverlay(true);
 
-    this.messageCommunicationService.sendMessage(component,message);
 
-    // jQuery("#stopRecordingModal").modal('show');
-    this.navigationService.disableNavBarAndUserLoginNavigation();
-    this.router.navigate(['/'+globals.HOME]);
+
+    jQuery("#stopRecordingModal").modal('show');
+    
   }
 
 }

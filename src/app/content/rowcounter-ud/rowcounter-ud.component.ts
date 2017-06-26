@@ -4,6 +4,8 @@ import { Ng2DeviceService } from 'ng2-device-detector';
 
 import { MessageCommunicationService } from '../../services/message-communication.service';
 
+import { MessageModel } from '../../models/message.model';
+
 import * as globals from '../../globals';
 
 @Component({
@@ -22,6 +24,8 @@ export class RowCounterUDComponent implements OnInit {
   isMobile = this.deviceService.device !== globals.UNKNOWN;
 
   ngOnInit() {
+    this.messageCommunicationService.setBackgroundOverlay(false);
+    
     this.messageCommunicationService.rowCounterUDComponentSubject.subscribe(
       (message) => {
         this.router.navigate(['/'+globals.END_TRANSACTION]);
@@ -30,6 +34,8 @@ export class RowCounterUDComponent implements OnInit {
   }
 
   onNext(){
+    this.messageCommunicationService.setBackgroundOverlay(true);
+
     const component = globals.ROWCOUNTER_UD;
     const message = globals.TO_END_OF_TRANSACTION;
     this.messageCommunicationService.sendMessage(component,message);

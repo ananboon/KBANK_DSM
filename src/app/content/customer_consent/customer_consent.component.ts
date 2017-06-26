@@ -6,6 +6,8 @@ import { Ng2DeviceService } from 'ng2-device-detector';
 import { MessageCommunicationService } from '../../services/message-communication.service';
 import { RecorderService } from '../../services/recorder.service';
 
+import { MessageModel } from '../../models/message.model';
+
 import * as globals from '../../globals';
 
 @Component({
@@ -34,6 +36,8 @@ export class CustomerConsentComponent implements OnInit{
   ){}
 
   ngOnInit(){
+    this.messageCommunicationService.setBackgroundOverlay(false);
+
     if(this.deviceService.device !== globals.UNKNOWN){
       this.disableName = true;
       this.disableCIS = true;
@@ -75,6 +79,8 @@ export class CustomerConsentComponent implements OnInit{
   }
 
   onConsentClick(allowRecording: boolean){
+    this.messageCommunicationService.setBackgroundOverlay(true);
+    
     const component = globals.CUSTOMER_CONSENT;
     if(allowRecording){
       const message = globals.START_RECORDING;
@@ -82,7 +88,6 @@ export class CustomerConsentComponent implements OnInit{
     }
 
     const message = globals.TO_ROWCOUNTER_PROCEDURE;
-
     this.messageCommunicationService.sendMessage(component,message);
     this.router.navigate(['/'+globals.ROWCOUNTER_PROCEDURES]);
   }

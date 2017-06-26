@@ -12,7 +12,7 @@ Injectable()
 export class MessageCommunicationService{
   public roomId: string;
   public clientToSendTo;
-  private url = 'http://192.168.1.178:8080';
+  private url = 'http://192.168.1.180:8080';
   private socket = io(this.url);
   private role;
 
@@ -20,6 +20,7 @@ export class MessageCommunicationService{
   public connectSubject = new Subject<MessageModel>();
   public recorderSubject = new Subject<MessageModel>();
   public logoutSubject = new Subject<MessageModel>();
+  public backgroundSubject = new Subject<MessageModel>();
 
   public bannerComponentSubject = new Subject<MessageModel>();
   public profileCardComponentSubject = new Subject<MessageModel>();
@@ -76,6 +77,8 @@ export class MessageCommunicationService{
       }else if(message.component === globals.SET_CLIENT_ID_TO_SEND_TO){
         this.clientToSendTo = message.message;
         this.connectSubject.next(message);
+      }else if(message.component === globals.BACKGROUND){
+        this.backgroundSubject.next(message);
       }else if(message.component === globals.BANNER){
         this.bannerComponentSubject.next(message);
       }else if(message.component === globals.PROFILE_CARD){
@@ -100,6 +103,19 @@ export class MessageCommunicationService{
     messageToSend.component = component;
     messageToSend.message = message;
     this.socket.emit(globals.MESSAGE,messageToSend);
+  }
+
+  setBackgroundOverlay(showBg){
+    const message = new MessageModel();
+    message.component = globals.BACKGROUND;
+
+    if(showBg === true){
+      message.message = globals.SHOW;
+      this.backgroundSubject.next(message);
+    }else{
+      message.message = globals.HIDE;
+      this.sendMessage(message.component,message.message);
+    }
   }
 
   destroyConnections(){

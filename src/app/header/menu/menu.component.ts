@@ -22,12 +22,15 @@ export class MenuComponent{
     private router: Router,
     private userService: UserService,
     private messageCommunicationService: MessageCommunicationService,
-    private recorderService: RecorderService
+    private recorderService: RecorderService,
+    private deviceService: Ng2DeviceService
   ){}
 
   showStopRecorder = false;
+  isMobile = false;
 
   ngOnInit(){
+    this.isMobile = this.deviceService.device !== 'unknown';
     this.recorderService.menuSubject.subscribe(
       (message) => {
         if(message.component === globals.RECORDER){
@@ -39,25 +42,7 @@ export class MenuComponent{
     );
   }
 
-  onStopRecording(){
-    console.log('stop recording');
-    jQuery("#stopRecordingModal").modal('hide');
-  }
-
-  onLogout(){
-    const component = globals.LOGOUT;
-    const message = globals.LOGOUT;
-
-    const messageModel = new MessageModel();
-    messageModel.component = component;
-    messageModel.message = message;
-
-    console.log('Menu Comp');
-    this.messageCommunicationService.sendMessage(component,message);
-    this.messageCommunicationService.logoutSubject.next(messageModel);
-
-    jQuery("#logoutModal").modal('hide');
-  }
+  
 
   ngOnDestroy(){
 

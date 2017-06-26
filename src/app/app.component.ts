@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, HostListener, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Routes, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -11,7 +11,11 @@ import { NavigationService } from './services/navigation.service'
 import { MessageCommunicationService } from './services/message-communication.service';
 import { RecorderService } from './services/recorder.service';
 
+import { MessageModel } from './models/message.model';
+
 import * as globals from './globals';
+
+declare var jQuery:any;
 
 
 @Component({
@@ -33,21 +37,31 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ){}
 
+
   isMobile = this.deviceService.device !== globals.UNKNOWN;
+  showBg = false;
 
   ngOnInit(){
-    console.log('tests');
     this.messageCommunicationService.logoutSubject.subscribe(
       (message) => {
-        console.log('test');
         if(message.component === globals.LOGOUT){
-          if(message.message === globals.LOGOUT){
-            this.userService.user = null;
-            if(!this.isMobile){
-              this.router.navigate(['/'+globals.LOGIN]);
-            }else{
-              this.router.navigate(['/'+globals.CONNECT]);
-            }
+          this.userService.logOut();
+          if(!this.isMobile){
+            this.router.navigate(['/'+globals.LOGIN]);
+          }else{
+            this.router.navigate(['/'+globals.CONNECT]);
+          }
+        }
+      }
+    );
+
+    this.messageCommunicationService.backgroundSubject.subscribe(
+      (message) => {
+        if(message.component === globals.BACKGROUND){
+          if(message.message === globals.SHOW){
+            this.showBg = true;
+          }else if(message.message === globals.HIDE){
+            this.showBg = false;
           }
         }
       }
@@ -64,6 +78,37 @@ export class AppComponent implements OnInit, OnDestroy {
 
   stopRecording(){
     this.recorderService.stopRecording();
+  }
+
+  showBackground(){
+    return this.showBg === true ? 'background' : '';
+  }
+
+  onStopRecording(){
+    console.log('stop recording');
+
+    const component = globals.END_TRANSACTION;
+    const message = globals.TO_HOME;
+    this.messageCommunicationService.sendMessage(component,message);
+
+    jQuery("#stopRecordingModal").modal('hide');
+
+    this.navigationService.disableNavBarAndUserLoginNavigation();
+    this.router.navigate(['/'+globals.HOME]);
+  }
+
+  onLogout(){
+    const component = globals.LOGOUT;
+    const message = this.userService.user.id;
+
+    const messageModel = new MessageModel();
+    messageModel.component = component;
+    messageModel.message = message;
+
+    this.messageCommunicationService.sendMessage(component,message);
+    this.messageCommunicationService.logoutSubject.next(messageModel);
+
+    jQuery("#logoutModal").modal('hide');
   }
 
   ngOnDestroy(){
