@@ -32,6 +32,9 @@ export class EndTransactionConfirmationComponent implements OnInit {
 
     this.messageCommunicationService.endTransactionComponentSubject.subscribe(
       (message) => {
+        if(!this.isMobile){
+          this.recorderService.stopRecording();
+        }
         this.navigationService.disableNavBarAndUserLoginNavigation();
         this.router.navigate(['/'+globals.HOME]);
       }
@@ -39,12 +42,13 @@ export class EndTransactionConfirmationComponent implements OnInit {
   }
 
   onEndTransaction(){
-    // this.messageCommunicationService.setBackgroundOverlay(true);
-
-
-
-    jQuery("#stopRecordingModal").modal('show');
     
+    const component = globals.END_TRANSACTION;
+    const message = globals.TO_HOME;
+    this.messageCommunicationService.sendMessage(component,message);
+
+    this.navigationService.disableNavBarAndUserLoginNavigation();
+    this.router.navigate(['/'+globals.HOME]);
   }
 
 }

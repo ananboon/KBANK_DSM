@@ -44,4 +44,5 @@ export const TO_HOME = 'redirect-to-home';
 export const UNKNOWN = 'unknown';
 
 export const START_RECORDING = 'start-recording';
+export const STOP_RECORDING = 'stop-recording';
 export const SHOW_STOP_RECORDER = 'show-stop-recorder';

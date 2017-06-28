@@ -7,6 +7,8 @@ import { UserService } from '../../services/user.service';
 import { MessageCommunicationService } from '../../services/message-communication.service';
 import { NavigationService } from '../../services/navigation.service';
 
+import { MessageModel } from '../../models/message.model';
+
 import * as globals from '../../globals';
 
 @Component({
@@ -36,7 +38,6 @@ export class LoginComponent implements OnInit, OnDestroy{
       if(component === globals.LOGIN_ERROR){
         this.errorMessage = true;
       }else if(component === globals.USER_DATA){
-        // this.messageCommunicationService.setBackgroundOverlay(true);
         this.errorMessage = false;
         this.userService.setUser(message.message);
         this.navigationService.disableNavBarAndUserLoginNavigation();
@@ -57,6 +58,5 @@ export class LoginComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(){
 
-    // this.messageCommunicationService.loginSubject.unsubscribe();
   }
 }

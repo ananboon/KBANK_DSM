@@ -48,6 +48,9 @@ export class CustomerConsentComponent implements OnInit{
         if(body === globals.TO_ROWCOUNTER_PROCEDURE){
           this.router.navigate(['/'+globals.ROWCOUNTER_PROCEDURES]);
         }else if(body === globals.START_RECORDING){
+          const accountName = this.accountName.nativeElement.value;
+          const accountCIS = this.accountCIS.nativeElement.value;
+          this.recorderService.setAccountNameAndCIS(accountName,accountCIS);
           this.recorderService.record();
         }else if(body.component === 'account-name'){
           this.nameNull = body.message === '';
@@ -80,7 +83,7 @@ export class CustomerConsentComponent implements OnInit{
 
   onConsentClick(allowRecording: boolean){
     this.messageCommunicationService.setBackgroundOverlay(true);
-    
+
     const component = globals.CUSTOMER_CONSENT;
     if(allowRecording){
       const message = globals.START_RECORDING;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
+
 import { MessageModel } from '../models/message.model';
 
 import * as RecordRTC from 'recordrtc';
@@ -19,54 +20,45 @@ export class RecorderService{
 
   public menuSubject = new Subject<MessageModel>();
 
+  constructor(
+
+  ){}
+
+  setAccountNameAndCIS(accountName, accountCIS){
+    this.accountName = accountName;
+    this.accountCIS = accountCIS;
+  }
 
   record(){
-    // const message = new MessageModel();
-    // message.component = globals.RECORDER;
-    // message.message = globals.SHOW_STOP_RECORDER;
-    //
-    // this.menuSubject.next(message);
-    //
-    // let mediaConstraints = {
-    //   video: true,
-    //   audio: true
-    // };
-    //
-    // navigator.mediaDevices
-    //   .getUserMedia(mediaConstraints)
-    //   .then(this.successCallback.bind(this), this.errorCallback.bind(this));
+    this.sendMessageToChromeExtension(globals.START_RECORDING);
+
+    const message = new MessageModel();
+    message.component = globals.RECORDER;
+    message.message = globals.SHOW_STOP_RECORDER;
+
+    this.menuSubject.next(message);
   }
 
-  successCallback(stream: MediaStream){
-    this.stream = stream;
-    var options = {
-      mimeType: 'video/webm', // or video/webm\;codecs=h264 or video/webm\;codecs=vp9
-      audioBitsPerSecond: 128000,
-      videoBitsPerSecond: 128000,
-      bitsPerSecond: 128000 // if this line is provided, skip above two
-    };
-    this.recordRTC = RecordRTC(this.stream, options);
-    this.recordRTC.startRecording();
+  sendMessageToChromeExtension(command){
+    var body = new MessageModel();
 
-    console.log(window.URL.createObjectURL(stream));
+    if(command === globals.START_RECORDING){
+      body.component = globals.START_RECORDING;
+      body.message = {
+        name: this.accountName,
+        CIS: this.accountCIS,
+        date : new Date().toLocaleDateString()
+      }
+    }else if(command === globals.STOP_RECORDING){
+      body.component = globals.STOP_RECORDING;
+    }
 
-  }
+    console.log(body);
 
-  errorCallback(error){
-    console.log(error);
+    window.postMessage(body,'*');
   }
 
   stopRecording() {
-    // let recordRTC = this.recordRTC;
-    // let blob = null;
-    // recordRTC.stopRecording(
-    //   () => {
-    //     blob = recordRTC.getBlob();
-    //     FileSaver.saveAs(blob, "video.webm");
-    //   }
-    // );
-    //
-    // this.stream.getAudioTracks().forEach(track => track.stop());
-    // this.stream.getVideoTracks().forEach(track => track.stop());
+    this.sendMessageToChromeExtension(globals.STOP_RECORDING);
   }
 }

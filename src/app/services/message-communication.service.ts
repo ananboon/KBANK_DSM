@@ -12,7 +12,7 @@ Injectable()
 export class MessageCommunicationService{
   public roomId: string;
   public clientToSendTo;
-  private url = 'http://192.168.1.180:8080';
+  private url = 'https://503df66a.ngrok.io';
   private socket = io(this.url);
   private role;
 
@@ -21,6 +21,7 @@ export class MessageCommunicationService{
   public recorderSubject = new Subject<MessageModel>();
   public logoutSubject = new Subject<MessageModel>();
   public backgroundSubject = new Subject<MessageModel>();
+  public recordingSubject = new Subject<MessageModel>();
 
   public bannerComponentSubject = new Subject<MessageModel>();
   public profileCardComponentSubject = new Subject<MessageModel>();
@@ -93,6 +94,8 @@ export class MessageCommunicationService{
         this.endTransactionComponentSubject.next(message);
       }else if(message.component === globals.LOGOUT){
         this.logoutSubject.next(message);
+      }else if(message.component === globals.STOP_RECORDING){
+        this.recordingSubject.next(message);
       }
     });
   }

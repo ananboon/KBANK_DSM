@@ -66,33 +66,31 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }
     );
+
+    this.messageCommunicationService.recordingSubject.subscribe(
+      (message) => {
+        if(message.component === globals.STOP_RECORDING){
+          if(message.message === globals.TO_HOME){
+            this.navigationService.disableNavBarAndUserLoginNavigation();
+            this.router.navigate(['/'+globals.HOME]);
+          }
+        }
+      }
+    );
   }
 
   ngAfterViewInit(){
 
   }
 
-  startRecording(){
-    this.recorderService.record();
-  }
-
-  stopRecording(){
-    this.recorderService.stopRecording();
-  }
-
-  showBackground(){
-    return this.showBg === true ? 'background' : '';
-  }
-
   onStopRecording(){
-    console.log('stop recording');
-
-    const component = globals.END_TRANSACTION;
-    const message = globals.TO_HOME;
-    this.messageCommunicationService.sendMessage(component,message);
-
+    this.recorderService.stopRecording();
     jQuery("#stopRecordingModal").modal('hide');
 
+    const component = globals.STOP_RECORDING;
+    const message = globals.TO_HOME;
+
+    this.messageCommunicationService.sendMessage(component,message);
     this.navigationService.disableNavBarAndUserLoginNavigation();
     this.router.navigate(['/'+globals.HOME]);
   }
@@ -109,6 +107,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.messageCommunicationService.logoutSubject.next(messageModel);
 
     jQuery("#logoutModal").modal('hide');
+
+  }
+
+  showBackground(){
+    return this.showBg === true ? 'background' : '';
   }
 
   ngOnDestroy(){
