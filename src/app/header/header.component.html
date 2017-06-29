@@ -3,11 +3,12 @@
     <div class="col-md-2">
       <img src="/assets/Logos/KBank_Logo.png" alt="Kbank Logo" class="img-responsive">
     </div>
-    <div class="col-md-8"></div>
-    <div class="col-md-2">
+    <div class="col-md-7"></div>
+    <div class="col-md-3">
       <div class="pull-right">
-        <span *ngIf="userInfoHasData">
+        <span *ngIf="userInfoHasData" class="text"> 
           {{id}} : {{name}}
+
         </span>
         <app-menu></app-menu>
       </div>

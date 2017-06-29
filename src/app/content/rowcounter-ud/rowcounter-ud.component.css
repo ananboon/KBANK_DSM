@@ -1,9 +1,31 @@
+/*.container {
+  height: 100vh;
+}*/
+
 .row {
   padding: 10px;
 }
 
+.image-div {
+  height: 60vh;
+}
+
 .img-responsive {
   padding: 10px;
-  min-height: 30vh;
-  max-height: 70vh;
+
+}
+
+.img-responsive {
+  min-height: 10%;
+  max-height: 100%;
+}
+
+.message {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: rgb(173,176,181);
+  border-radius: 15px;
+  color: white;
 }

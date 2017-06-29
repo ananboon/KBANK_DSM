@@ -1,50 +1,64 @@
-<div class="col-md-2">
-
-</div>
+<div class="col-md-2"></div>
 <div class="col-md-8">
   <div class="row">
     <div class="col-md-12">
-      <form class=" text-center" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <form class="text-center text" (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <p>
-						Welcome to<br>
-						Digital Sales Management
-				</p>
-				<hr>
-				<p>
-					กรุณากรอก Username และ Password
-				</p>
+          <span style="font-size: 1.5em;font-weight: 600">Welcome to</span>
+          <br>
+          <span style="font-size: 1.8em;" class="header-text"><strong>Digital Sales<br>Management</strong></span>
+        </p>
         <hr>
-        <div class="form-inline form-group">
-          <label class="sr-only" for="inlineFormInput">UserName</label>
-  		  	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-  		    	<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-  		  		<input
+				<p>
+          <strong>
+            เข้าใช้งานด้วยรหัสผ่านเดียวกันกับรหัสผ่านที่ใช้ล็อกอินเข้าเครื่องคอมพิวเตอร์<br>
+            ของผู้ใช้งานแต่ละท่าน โดยกรอก Username และ Password ดังนี้
+          </strong>
+
+        </p>
+        <p>
+          <small>
+            ชื่อผู้ใช้ : K0 รหัสผ่านพนักงาน 6 หลัก<br>
+            รหัสผ่าน : รหัสผ่านตามที่ท่านได้บันทึกไว้
+          </small>
+        </p>
+        <hr>
+        <div class="row vertical-align">
+          <div class="col-md-4 text-right">
+            <label for="username"><small>ชื่อผู้ใช้</small></label>
+          </div>
+          <div class="col-md-4 text-left">
+            <input
               type="text"
-              class="form-control mb-2 mr-sm-2 mb-sm-0"
-              id="inlineFormInput"
-              placeholder="Username"
+              class="form-control text"
+              id="username"
               name="username"
               ngModel
               required
               #userName="ngModel">
-  		  	</div>
-
-  		  	<label class="sr-only" for="inlineFormInputGroup">Password</label>
-  		  	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-  		    	<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-  		    	<input
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+        <div class="row vertical-align">
+          <div class="col-md-4 text-right">
+              <label for="password"><small>รหัสผ่าน</small></label>
+          </div>
+          <div class="col-md-4 text-left">
+            <input
               type="Password"
-              class="form-control"
-              id="inlineFormInputGroup"
-              placeholder="Password"
+              class="form-control text"
+              id="password"
               name="password"
               ngModel
               required
               #password="ngModel">
-  		  	</div>
-          <p *ngIf="errorMessage">กรุณาตรวจสอบข้อมูลอีกครั้ง</p>
+          </div>
+          <div class="col-md-4"></div>
         </div>
-        <button type="submit" class="btn btn-main" name="login" [disabled]="!loginForm.valid">Login</button>
+        <p *ngIf="errorMessage">กรุณาตรวจสอบข้อมูลอีกครั้ง</p>
+        <div class="row">
+            <button type="submit" class="btn btn-main" name="login" [disabled]="!loginForm.valid">เข้าสู่ระบบ</button>
+        </div>
       </form>
     </div>
   </div>

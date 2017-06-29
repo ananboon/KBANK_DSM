@@ -4,20 +4,20 @@
       <!-- <p>
         ขณะนี้พนักงานกำลังดำเนินการอยู่
       </p> -->
-      <div id="bannerCarousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-  	    	<li data-target="#bannerCarousel" data-slide-to="0" class="active"></li>
-  	    	<li data-target="#bannerCarousel" data-slide-to="1"></li>
-  	  	</ol>
+      <div id="bannerCarousel" class="carousel slide" data-ride="carousel" >
+        <ol class="carousel-indicators" >
+          <li data-target="#bannerCarousel" [attr.data-slide-to]="i" [ngClass]="getActive(i)" *ngFor="let banner of banners; let i=index"></li>
+        </ol>
 
         <div class="carousel-inner">
-  	    	<div class="item active">
-  	      		<img src="/assets/Banner/banner1.jpg" class="img-responsive" alt="test">
-  	    	</div>
-          <div class="item">
-  	      		<img src="/assets/Banner/banner2.jpg" class="img-responsive" alt="test2">
-  	    	</div>
+          <div class="item" [ngClass]="getActive(i)" *ngFor="let banner of banners; let i=index">
+              <img src="{{banner}}" class="center-block img-responsive" alt="test">
+          </div>
+          <!-- <div class="item">
+              <img src="/assets/Banner/banner2.jpg" class="center-block img-responsive" alt="test2">
+          </div> -->
         </div>
+
 
   	  	<a class="left carousel-control" href="#bannerCarousel" data-slide="prev" >
   	    	<span class="glyphicon glyphicon-chevron-left"></span>

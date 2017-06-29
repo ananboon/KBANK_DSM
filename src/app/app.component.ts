@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Routes, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -6,10 +7,12 @@ import { Subject } from 'rxjs/Subject';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Ng2DeviceService } from 'ng2-device-detector';
 
+
 import { UserService } from './services/user.service';
 import { NavigationService } from './services/navigation.service'
 import { MessageCommunicationService } from './services/message-communication.service';
 import { RecorderService } from './services/recorder.service';
+import { ImageService } from './services/images.service';
 
 import { MessageModel } from './models/message.model';
 
@@ -33,8 +36,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private navigationService: NavigationService,
     private deviceService: Ng2DeviceService,
     private location: Location,
-    private router: Router
-
+    private router: Router,
+    private imageService: ImageService
   ){}
 
 
@@ -42,6 +45,8 @@ export class AppComponent implements OnInit, OnDestroy {
   showBg = false;
 
   ngOnInit(){
+    this.imageService.getBanners();
+
     this.messageCommunicationService.logoutSubject.subscribe(
       (message) => {
         if(message.component === globals.LOGOUT){
@@ -113,6 +118,8 @@ export class AppComponent implements OnInit, OnDestroy {
   showBackground(){
     return this.showBg === true ? 'background' : '';
   }
+
+
 
   ngOnDestroy(){
 

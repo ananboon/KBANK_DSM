@@ -20,14 +20,13 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/typeface-prompt/index.css",
+        "./fonts/index.css",
         "styles.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "../node_modules/bootstrap-carousel-swipe/carousel-swipe.js",
-        "./assets/js/test.js"
+        "../node_modules/bootstrap-carousel-swipe/carousel-swipe.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

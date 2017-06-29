@@ -25,6 +25,7 @@ import { RecorderService } from './services/recorder.service';
 import { SharepointService } from './services/sharepoint.service';
 import { UserService } from './services/user.service';
 import { NavigationService } from './services/navigation.service';
+import { ImageService } from './services/images.service';
 import { CanActivateViaAuthGuardService } from './services/canactivate-via-auth-guard.service';
 import { CanActivateHomeToCustomerConsentGuardService } from './services/canactivate-home-to-customer-consent-guard.service';
 
@@ -62,8 +63,10 @@ import { AppRoutingModule } from './app-routing.module';
     SharepointService,
     MessageCommunicationService,
     NavigationService,
+    ImageService,
     CanActivateViaAuthGuardService,
-    CanActivateHomeToCustomerConsentGuardService
+    CanActivateHomeToCustomerConsentGuardService,
+
   ],
   bootstrap: [AppComponent]
 })

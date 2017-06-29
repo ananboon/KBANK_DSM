@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
 html, body {
-	font-family: 'Prompt';
+	font-family: "Prompt";
 	overflow-y: hidden;
 }
 
@@ -9,6 +10,32 @@ html, body {
 	    align-items: center;
 	    padding-top: 5px;
 	    padding-bottom: 5px;
+			margin-top: 0px;
+			margin-bottom: 0px;
+}
+
+h1 {
+    font-size: 2.5em; /* 40px/16=2.5em */
+		margin: 0px;
+}
+
+h2 {
+    font-size: 1.875em; /* 30px/16=1.875em */
+		margin: 0px;
+}
+
+h3 {
+		font-size: 1.5em; /* 30px/16=1.875em */
+		margin: 0px;
+}
+
+.header-text {
+	color: rgb(1,168,8);
+}
+
+.text {
+	color: rgb(135, 140, 145);
+
 }
 
 a {
@@ -19,28 +46,27 @@ a {
 .btn-main {
   background-color: rgb(10,169,79);
   color: white;
-	
 }
 
 .btn-main:disabled:hover{
   background-color: rgb(10,169,79);
-
 }
 
 .btn-main:hover {
   background-color: rgb(7,133,61);
 	color: white;
-
 }
 
 .btn-cancel {
 	background-color: rgb(141,146,150);
 	color: white;
-
 }
 
 .btn-cancel:hover {
 	background-color: rgb(120,126,131);
 	color: white;
+}
+
+.btn-menu {
 
 }

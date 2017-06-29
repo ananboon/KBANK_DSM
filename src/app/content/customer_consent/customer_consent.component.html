@@ -1,11 +1,52 @@
 <div class="container">
-  <div class="row text-center vertical-align">
+  <div class="row text-center vertical-align text">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-      <form class="text-center" #consentForm="ngForm">
-        <div class="form-inline">
-          <label class="sr-only" for="accountname">ชื่อ</label>
-  			  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+      <label for="consentForm" class="header-text"><h3>ข้อมูลลูกค้า</h3></label>
+      <form id="consentForm" class="text-center" #consentForm="ngForm">
+        <div class="row">
+          <div class="col-md-4 text-right">
+            <label for="accountname" class="control-label"><small>ชื่อ/นามสกุล</small></label>
+          </div>
+          <div class="col-md-8 text-left">
+            <div class="form-inline">
+              <input
+                type="text"
+                class="form-control"
+                id="accountname"
+                name="accountname"
+                ngModel
+                required
+                (ngModelChange)="onNameChange($event)"
+                [disabled]="disableName"
+                #accountName>
+            </div>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-md-4 text-right">
+            <label for="accountcis" class="control-label"><small>รหัส CIS ลูกค้า</small></label>
+          </div>
+          <div class="col-md-8 text-left">
+            <div class="form-inline">
+              <input
+                type="text"
+                class="form-control"
+                id="accountcis"
+                name="accountcis"
+                ngModel
+                required
+                (ngModelChange)="onCISChange($event)"
+                [disabled]="disableCIS"
+                #accountCIS>
+            </div>
+          </div>
+        </div>
+
+
+
+
+  			  <!-- <div class="input-group mb-2 mr-sm-2 mb-sm-0">
   			  	<input
               type="text"
               class="form-control mb-2 mr-sm-2 mb-sm-0"
@@ -32,12 +73,18 @@
               (ngModelChange)="onCISChange($event)"
               [disabled]="disableCIS"
               #accountCIS>
-  			  </div>
+  			  </div> -->
+          <hr>
+            <h3>ขออนุญาตบันทึกภาพและเสียง</h3>
+            <p style="margin: 10px">
+              ขออนุญาตท่านในการบันทึกภาพหน้าจอและเสียงระหว่างการทำธุรกรรม<br>
+              เพิ่อเป็นข้อมูลในการพัฒนาการบริการของธนาคาร
+            </p>
           <hr>
 
   				<button type="button" id="customerAccept"  class="btn btn-main" [disabled]="nameNull || cisNull" (click)="onConsentClick(true)">อนุญาต</button>
   				<button type="button" id="customerDecline"  class="btn btn-cancel" [disabled]="nameNull || cisNull" (click)="onConsentClick(false)">ไม่อนุญาต</button>
-        </div>
+
       </form>
 
     </div>

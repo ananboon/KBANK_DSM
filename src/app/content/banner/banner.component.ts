@@ -6,6 +6,7 @@ import { Ng2DeviceService } from 'ng2-device-detector';
 import { NavigationService } from '../../services/navigation.service';
 import { MessageCommunicationService } from '../../services/message-communication.service'
 import { UserService } from '../../services/user.service';
+import { ImageService } from '../../services/images.service';
 
 import { MessageModel } from '../../models/message.model';
 
@@ -23,13 +24,16 @@ export class BannerComponent{
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private deviceService: Ng2DeviceService
+    private deviceService: Ng2DeviceService,
+    private imageService: ImageService
   ){}
 
+  banners = [];
   isMobile = this.deviceService.device !== globals.UNKNOWN;
   nextWording:string = globals.START_TRANSACTION;
 
   ngOnInit(){
+    this.banners = this.imageService.bannerImages;
     this.messageCommunicationService.setBackgroundOverlay(false);
 
     const routeName = this.router.url;
@@ -67,6 +71,10 @@ export class BannerComponent{
       this.messageCommunicationService.sendMessage(component,message);
       this.router.navigate(['/'+globals.FUND_NAVIGATOR]);
     }
+  }
+
+  getActive(index){
+    return index === 0 ? 'active':'';
   }
 
 }

@@ -1,8 +1,9 @@
 <div class="btn-group" *ngIf="!isMobile && userService.userLoggedIn()">
-  <button type="button" class="btn btn-main dropdown-toggle" data-toggle="dropdown">
+  <button type="button" class="btn btn-cancel dropdown-toggle" data-toggle="dropdown">
+    <span>เมนู</span>
     <span class="glyphicon glyphicon-menu-hamburger"></span>
   </button>
-  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+  <ul class="dropdown-menu dropdown-menu-right text" role="menu">
       <li *ngIf="showStopRecorder"><a data-toggle="modal" data-target="#stopRecordingModal">หยุดการบันทึกภาพและเสียง</a></li>
       <li><a data-toggle="modal" data-target="#logoutModal">ออกจากระบบ</a></li>
   </ul>

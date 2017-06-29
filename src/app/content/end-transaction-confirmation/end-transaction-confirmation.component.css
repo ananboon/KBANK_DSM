@@ -4,6 +4,6 @@
 
 .img-responsive {
   padding: 10px;
-  min-height: 30vh;
-  max-height: 60vh;
+  min-height: 10vh;
+  max-height: 50vh;
 }

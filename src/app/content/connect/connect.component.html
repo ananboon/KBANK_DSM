@@ -1,14 +1,19 @@
 <div class="container">
-  <div class="row text-center vertical-align">
+  <div class="row text-center vertical-align text">
     <div class="col-md-4"></div>
     <div class="col-md-4">
       <div class="connectInfo">
-        กรุณาใส่ Id ของ User ที่ต้องการเชื่อมต่อ
+        <h3>
+            กรุณาใส่รหัสพนักงาน<br>ที่ต้องการเชื่อมต่อ
+        </h3>
+
       </div>
       <hr>
       <div class="connectInputForm">
-        <label for="connectInput">Id User</label>
+        <label for="connectInput">รหัสพนักงาน</label>
         <input type="text" class="form-control" name="connectInput" #roomId>
+      </div>
+      <div class="row">
         <button type="button" class="btn btn-main" (click)="onConnect()">เชื่อมต่อ</button>
       </div>
       <p *ngIf="errorRoom">{{errorMessage}}</p>
