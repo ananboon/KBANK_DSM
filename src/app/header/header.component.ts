@@ -5,6 +5,7 @@ import { Ng2DeviceService } from 'ng2-device-detector';
 
 import { UserModel } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { RecorderService } from '../services/recorder.service';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ import { UserService } from '../services/user.service';
 export class HeaderComponent implements OnInit{
   constructor(
     private userService: UserService,
+    private recorderService: RecorderService,
     private deviceService: Ng2DeviceService
   ){}
 

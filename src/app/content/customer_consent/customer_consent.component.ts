@@ -88,6 +88,7 @@ export class CustomerConsentComponent implements OnInit{
     if(allowRecording){
       const message = globals.START_RECORDING;
       this.messageCommunicationService.sendMessage(component,message);
+      this.recorderService.recording = true;
     }
 
     const message = globals.TO_ROWCOUNTER_PROCEDURE;

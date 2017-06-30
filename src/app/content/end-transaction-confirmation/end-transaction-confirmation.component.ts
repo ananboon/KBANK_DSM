@@ -6,6 +6,8 @@ import { MessageCommunicationService } from '../../services/message-communicatio
 import { NavigationService } from '../../services/navigation.service';
 import { RecorderService } from '../../services/recorder.service';
 
+import { MessageModel } from '../../models/message.model';
+
 import * as globals from '../../globals';
 
 declare var jQuery:any;
@@ -32,23 +34,25 @@ export class EndTransactionConfirmationComponent implements OnInit {
 
     this.messageCommunicationService.endTransactionComponentSubject.subscribe(
       (message) => {
-        if(!this.isMobile){
-          this.recorderService.stopRecording();
+        if(message.component === globals.END_TRANSACTION){
+          if(message.message === globals.STOP_RECORDING){
+            let body = new MessageModel();
+            body.component = globals.RECORDER;
+            body.message = globals.STOP_RECORDING;
+
+            this.messageCommunicationService.recordingSubject.next(body);
+          }
         }
-        this.navigationService.disableNavBarAndUserLoginNavigation();
-        this.router.navigate(['/'+globals.HOME]);
       }
     );
   }
 
   onEndTransaction(){
-    
+
     const component = globals.END_TRANSACTION;
-    const message = globals.TO_HOME;
+    const message = globals.STOP_RECORDING;
     this.messageCommunicationService.sendMessage(component,message);
 
-    this.navigationService.disableNavBarAndUserLoginNavigation();
-    this.router.navigate(['/'+globals.HOME]);
   }
 
 }

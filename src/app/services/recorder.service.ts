@@ -16,9 +16,7 @@ export class RecorderService{
   accountCIS = '';
 
   recordRTC: RecordRTC;
-  stream;
-
-  public menuSubject = new Subject<MessageModel>();
+  recording = false;
 
   constructor(
 
@@ -30,13 +28,8 @@ export class RecorderService{
   }
 
   record(){
+    this.recording = true;
     this.sendMessageToChromeExtension(globals.START_RECORDING);
-
-    const message = new MessageModel();
-    message.component = globals.RECORDER;
-    message.message = globals.SHOW_STOP_RECORDER;
-
-    this.menuSubject.next(message);
   }
 
   sendMessageToChromeExtension(command){
@@ -59,6 +52,7 @@ export class RecorderService{
   }
 
   stopRecording() {
+    this.recording = false;
     this.sendMessageToChromeExtension(globals.STOP_RECORDING);
   }
 }

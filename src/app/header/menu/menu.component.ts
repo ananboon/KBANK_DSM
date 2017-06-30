@@ -26,23 +26,14 @@ export class MenuComponent{
     private deviceService: Ng2DeviceService
   ){}
 
-  showStopRecorder = false;
+
   isMobile = false;
 
   ngOnInit(){
     this.isMobile = this.deviceService.device !== 'unknown';
-    this.recorderService.menuSubject.subscribe(
-      (message) => {
-        if(message.component === globals.RECORDER){
-          if(message.message === globals.SHOW_STOP_RECORDER){
-            this.showStopRecorder = true;
-          }
-        }
-      }
-    );
   }
 
-  
+
 
   ngOnDestroy(){
 

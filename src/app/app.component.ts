@@ -76,8 +76,18 @@ export class AppComponent implements OnInit, OnDestroy {
       (message) => {
         if(message.component === globals.STOP_RECORDING){
           if(message.message === globals.TO_HOME){
+            this.recorderService.recording = false;
             this.navigationService.disableNavBarAndUserLoginNavigation();
             this.router.navigate(['/'+globals.HOME]);
+
+            //if mobile disconnect by closing tab then stop recording
+            if(!this.isMobile){
+              this.recorderService.stopRecording();
+            }
+          }
+        }else if(message.component === globals.RECORDER){
+          if(message.message === globals.STOP_RECORDING){
+            jQuery("#stopRecordingModal").modal('show');
           }
         }
       }
