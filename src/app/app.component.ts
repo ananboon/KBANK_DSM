@@ -1,13 +1,11 @@
 import { Component, OnInit, OnDestroy, Inject, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Routes, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { DOCUMENT } from '@angular/platform-browser';
+
 import { Ng2DeviceService } from 'ng2-device-detector';
-
-
 import { UserService } from './services/user.service';
 import { NavigationService } from './services/navigation.service'
 import { MessageCommunicationService } from './services/message-communication.service';
@@ -20,14 +18,12 @@ import * as globals from './globals';
 
 declare var jQuery:any;
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private messageCommunicationService: MessageCommunicationService,
@@ -39,7 +35,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private imageService: ImageService
   ){}
-
 
   isMobile = this.deviceService.device !== globals.UNKNOWN;
   showBg = false;
@@ -122,45 +117,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.messageCommunicationService.logoutSubject.next(messageModel);
 
     jQuery("#logoutModal").modal('hide');
-
   }
 
   showBackground(){
     return this.showBg === true ? 'background' : '';
   }
 
-
-
   ngOnDestroy(){
 
   }
 }
-
-
-
-
-// @Component({
-//   selector: 'dialog-result-example',
-//   templateUrl: 'dialog-result-example.html',
-// })
-// export class DialogResultExample {
-//   selectedOption: string;
-//
-//   constructor(public dialog: MdDialog) {}
-//
-//   openDialog() {
-//     let dialogRef = this.dialog.open(DialogResultExampleDialog);
-//     dialogRef.afterClosed().subscribe(result => {
-//       this.selectedOption = result;
-//     });
-//   }
-// }
-//
-//
-// @Component({
-//   selector: 'dialog-result-example-dialog',
-//   templateUrl: 'dialog-result-example-dialog.html',
-// })
-// export class DialogResultExampleDialog {
-//   constructor(public dialogRef: MdDialogRef<DialogResultExampleDialog>) {}
-// }

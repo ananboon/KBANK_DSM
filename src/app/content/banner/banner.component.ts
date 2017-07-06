@@ -27,13 +27,17 @@ export class BannerComponent{
     private deviceService: Ng2DeviceService,
     private imageService: ImageService
   ){}
-
+  config;
   banners = [];
   isMobile = this.deviceService.device !== globals.UNKNOWN;
   nextWording:string = globals.START_TRANSACTION;
 
+  draggable = this.isMobile;
+
   ngOnInit(){
     this.banners = this.imageService.bannerImages;
+    this.getConfig(this.isMobile);
+
     this.messageCommunicationService.setBackgroundOverlay(false);
 
     const routeName = this.router.url;
@@ -75,6 +79,34 @@ export class BannerComponent{
 
   getActive(index){
     return index === 0 ? 'active':'';
+  }
+
+  getConfig(isMobile:boolean){
+    if(isMobile){
+      this.config = {
+        direction: 'horizontal',
+        speed: 500,
+        slidesPerView: 'auto',
+        autoplay: 3000,
+        loop: true,
+        loopedSlides: this.banners.length,
+        pagination: '.swiper-pagination',
+        paginationClickable: true
+      };
+    }else{
+      this.config = {
+        direction: 'horizontal',
+        speed: 500,
+        slidesPerView: 'auto',
+        autoplay: 3000,
+        loop: true,
+        loopedSlides: this.banners.length,
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev'
+      };
+    }
   }
 
 }

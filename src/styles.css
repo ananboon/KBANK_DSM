@@ -8,25 +8,10 @@ html, body {
 .vertical-align {
 	    display: flex;
 	    align-items: center;
-	    padding-top: 5px;
-	    padding-bottom: 5px;
+	    padding-top: 0px;
+	    padding-bottom: 0px;
 			margin-top: 0px;
 			margin-bottom: 0px;
-}
-
-h1 {
-    font-size: 2.5em; /* 40px/16=2.5em */
-		margin: 0px;
-}
-
-h2 {
-    font-size: 1.875em; /* 30px/16=1.875em */
-		margin: 0px;
-}
-
-h3 {
-		font-size: 1.5em; /* 30px/16=1.875em */
-		margin: 0px;
 }
 
 .header-text {
@@ -35,7 +20,6 @@ h3 {
 
 .text {
 	color: rgb(135, 140, 145);
-
 }
 
 a {
@@ -69,4 +53,36 @@ a {
 
 .btn-menu {
 
+}
+
+.swiper-pagination {
+
+}
+
+.swiper-pagination-bullet {
+	background-color: #fff;
+	width: 3%;
+	height: 13%;
+	opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+	background-color: rgb(10,169,79) !important;
+	opacity: 1;
+}
+
+.swiper-button-prev {
+	background-image: url('/assets/arrows/left-arrow.svg') !important;
+}
+
+.swiper-button-prev:hover {
+
+}
+
+.swiper-button-next {
+	background-image: url('/assets/arrows/right-arrow.svg') !important;
+}
+
+.swiper-button-next:hover {
+	
 }

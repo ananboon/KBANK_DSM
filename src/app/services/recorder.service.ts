@@ -6,8 +6,6 @@ import { UserService } from '../services/user.service';
 import { UserModel } from '../models/user.model';
 import { MessageModel } from '../models/message.model';
 
-import * as RecordRTC from 'recordrtc';
-import * as FileSaver from 'file-saver';
 
 import * as globals from '../globals';
 
@@ -16,8 +14,6 @@ export class RecorderService{
 
   accountName = '';
   accountCIS = '';
-
-  recordRTC: RecordRTC;
   recording = false;
 
   constructor(
@@ -48,8 +44,6 @@ export class RecorderService{
     }else if(command === globals.STOP_RECORDING){
       body.component = globals.STOP_RECORDING;
     }
-
-    console.log(body);
 
     window.postMessage(body,'*');
   }

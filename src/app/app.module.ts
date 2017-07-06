@@ -2,8 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdButtonModule, MdCheckboxModule } from '@angular/material';
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -31,6 +36,9 @@ import { CanActivateHomeToCustomerConsentGuardService } from './services/canacti
 
 import { AppRoutingModule } from './app-routing.module';
 
+const SWIPER_CONFIG: SwiperConfigInterface = {
+
+};
 
 @NgModule({
   declarations: [
@@ -53,9 +61,11 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     FormsModule,
     HttpModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     Ng2DeviceDetectorModule.forRoot(),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    SwiperModule.forRoot(SWIPER_CONFIG)
   ],
   providers: [
     UserService,
@@ -65,8 +75,7 @@ import { AppRoutingModule } from './app-routing.module';
     NavigationService,
     ImageService,
     CanActivateViaAuthGuardService,
-    CanActivateHomeToCustomerConsentGuardService,
-
+    CanActivateHomeToCustomerConsentGuardService
   ],
   bootstrap: [AppComponent]
 })
