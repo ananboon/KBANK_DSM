@@ -39,7 +39,7 @@ export class RecorderService{
         name: this.accountName,
         CIS: this.accountCIS,
         userId: this.userService.user.id,
-        date : new Date().toLocaleDateString()
+        date : new Date().toLocaleString()
       }
     }else if(command === globals.STOP_RECORDING){
       body.component = globals.STOP_RECORDING;

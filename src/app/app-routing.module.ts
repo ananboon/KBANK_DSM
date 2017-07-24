@@ -24,13 +24,13 @@ import * as globals from './globals';
 const routes: Routes = [
   {path: globals.LOGIN, component: LoginComponent, canActivate: [CanActivateViaAuthGuardService]},
   {path: globals.CONNECT, component: ConnectComponent, canActivate: []},
-  {path: globals.HOME, component: BannerComponent, canActivate: []},
-  {path: globals.PROFILE_CARD, component: ProfileCardComponent, canActivate: []},
-  {path: globals.CUSTOMER_CONSENT, component: CustomerConsentComponent, canActivate: []},
-  {path: globals.ROWCOUNTER_PROCEDURES, component: BannerComponent, canActivate: []},
-  {path: globals.FUND_NAVIGATOR, component: FundNavigatorComponent, canActivate: []},
-  {path: globals.ROWCOUNTER_UD, component: RowCounterUDComponent, canActivate: []},
-  {path: globals.END_TRANSACTION, component: EndTransactionConfirmationComponent, canActivate: []},
+  {path: globals.HOME, component: BannerComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
+  {path: globals.PROFILE_CARD, component: ProfileCardComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
+  {path: globals.CUSTOMER_CONSENT, component: CustomerConsentComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
+  {path: globals.ROWCOUNTER_PROCEDURES, component: BannerComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
+  {path: globals.FUND_NAVIGATOR, component: FundNavigatorComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
+  {path: globals.ROWCOUNTER_UD, component: RowCounterUDComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
+  {path: globals.END_TRANSACTION, component: EndTransactionConfirmationComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
   {path: '**', component: LoginComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]}
 
 ];

@@ -17,6 +17,7 @@ export class CanActivateViaAuthGuardService implements CanActivate {
   canActivate(){
     // If the device is a mobile device then redirect to connect page
     // Need to change to if device is mobile and connected then redirect to landing page
+    console.log('canActiveGuard')
     if(this.deviceService.device !== 'unknown'){
       this.router.navigate(['/connect']);
       return false;
@@ -25,11 +26,15 @@ export class CanActivateViaAuthGuardService implements CanActivate {
     // If the device is PC and not logged in then allow login page but do not allow other page
     // If the device is PC and logged in then do not allow login page but allow all other page
     if(this.userService.user === null){
+      console.log('user is not logged in')
       return true;
     }else{
+      console.log('user is logged in')
       this.router.navigate(['/home']);
       return false;
     }
+
+
 
   }
 }

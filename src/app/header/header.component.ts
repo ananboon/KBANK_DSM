@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit{
   name:string = '';
 
   ngOnInit(){
+
     this.userService.userLoggedInSubject.subscribe(
       (user: UserModel) => {
         if(user !== null){
