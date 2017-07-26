@@ -1,18 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+    font-family: PSLxText;
+    src: url(fonts/font/PSLxText_0.ttf);
+}
+
+@font-face {
+    font-family: PSLxText;
+    src: url(fonts/font/PSLxText Bold_0.ttf);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: PSLxText;
+    src: url(fonts/font/PSLxText Italic_0.ttf);
+    font-style: italic;
+}
+
 html, body {
 	/*font-family: "Prompt";*/
 	overflow-y: hidden;
-	font-family: "PSLxText";
+	font-family: PSLxText;
+	font-size: 20px;
 }
+
 
 .vertical-align {
 	    display: flex;
 	    align-items: center;
 	    padding-top: 0px;
 	    padding-bottom: 0px;
-			margin-top: 0px;
-			margin-bottom: 0px;
+		margin-top: 0px;
+		margin-bottom: 0px;
 }
 
 .header-text {
@@ -86,4 +105,16 @@ a {
 
 .swiper-button-next:hover {
 	
+}
+
+.message {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: rgb(173,176,181);
+  border-radius: 15px;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

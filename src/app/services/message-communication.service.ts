@@ -12,7 +12,7 @@ Injectable()
 export class MessageCommunicationService{
   public roomId: string;
   public clientToSendTo;
-  private url = 'https://036ee773.ngrok.io';
+  private url = '127.0.0.1:8080';
   private socket = io(this.url);
   private role;
 

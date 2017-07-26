@@ -109,4 +109,8 @@ export class BannerComponent{
     }
   }
 
+  getURLIsROWCOUNTER_PROCEDURES(){
+    return (this.router.url === ('/'+globals.ROWCOUNTER_PROCEDURES));
+  }
+
 }
