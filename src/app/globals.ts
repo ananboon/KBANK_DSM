@@ -46,3 +46,8 @@ export const UNKNOWN = 'unknown';
 export const START_RECORDING = 'start-recording';
 export const STOP_RECORDING = 'stop-recording';
 export const SHOW_STOP_RECORDER = 'show-stop-recorder';
+
+export const SMARTWIZARD_ID2 = '#smartwizard2';
+export const SMARTWIZARDNAV_ID = '#smartwizardNav'
+
+export const SLIDE_CHANGE = 'Slide-Change'

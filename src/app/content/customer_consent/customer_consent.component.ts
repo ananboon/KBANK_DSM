@@ -1,11 +1,13 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef,OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Ng2DeviceService } from 'ng2-device-detector';
 
 import { MessageCommunicationService } from '../../services/message-communication.service';
 import { RecorderService } from '../../services/recorder.service';
-
+import { NavigationService } from '../../services/navigation.service';
+import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs/Subject';
 import { MessageModel } from '../../models/message.model';
 
 import * as globals from '../../globals';
@@ -15,7 +17,7 @@ import * as globals from '../../globals';
   templateUrl: './customer_consent.component.html',
   styleUrls: ['./customer_consent.component.css']
 })
-export class CustomerConsentComponent implements OnInit{
+export class CustomerConsentComponent implements OnInit,OnDestroy{
   @ViewChild('consentForm') consentForm: NgForm;
   @ViewChild('accountName') accountName: ElementRef;
   @ViewChild('accountCIS') accountCIS: ElementRef;
@@ -26,13 +28,15 @@ export class CustomerConsentComponent implements OnInit{
   nameNull = true;
   cisNull = true;
 
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
     private recorderService: RecorderService,
     private messageCommunicationService: MessageCommunicationService,
     private route: ActivatedRoute,
     private router: Router,
-    private deviceService: Ng2DeviceService
+    private deviceService: Ng2DeviceService,
+    private navigationService: NavigationService
   ){}
 
   ngOnInit(){
@@ -42,11 +46,16 @@ export class CustomerConsentComponent implements OnInit{
       this.disableName = true;
       this.disableCIS = true;
     }
-    this.messageCommunicationService.customerConsentComponentSubject.subscribe(
+    this.messageCommunicationService.customerConsentComponentSubject
+    .takeUntil(this.ngUnsubscribe)
+    .subscribe(
       (message) => {
         const body = message.message;
         if(body === globals.TO_ROWCOUNTER_PROCEDURE){
           this.router.navigate(['/'+globals.ROWCOUNTER_PROCEDURES]);
+          console.log('Debug customer consent ROWCOUNTER_PROCEDURES');
+          console.log('Debug Message',message);
+          this.navigationService.nextStep();
         }else if(body === globals.START_RECORDING){
           const accountName = this.accountName.nativeElement.value;
           const accountCIS = this.accountCIS.nativeElement.value;
@@ -61,6 +70,11 @@ export class CustomerConsentComponent implements OnInit{
         }
       }
     );
+  }
+
+  ngOnDestroy(){
+     this.ngUnsubscribe.next();
+     this.ngUnsubscribe.complete();
   }
 
   onNameChange(event){
@@ -94,5 +108,6 @@ export class CustomerConsentComponent implements OnInit{
     const message = globals.TO_ROWCOUNTER_PROCEDURE;
     this.messageCommunicationService.sendMessage(component,message);
     this.router.navigate(['/'+globals.ROWCOUNTER_PROCEDURES]);
+    this.navigationService.nextStep();
   }
 }

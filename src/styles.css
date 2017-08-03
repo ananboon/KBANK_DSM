@@ -19,7 +19,7 @@
 
 html, body {
 	/*font-family: "Prompt";*/
-	overflow-y: hidden;
+	/*overflow-y: hidden;*/
 	font-family: PSLxText;
 	font-size: 20px;
 }
@@ -118,3 +118,9 @@ a {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.btn-lg{
+	font-size: 25px;
+}
+
+

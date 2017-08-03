@@ -12,7 +12,7 @@ Injectable()
 export class MessageCommunicationService{
   public roomId: string;
   public clientToSendTo;
-  private url = '192.168.0.100:8080';
+  private url = 'https://a90eb0b2.ngrok.io';
   private socket = io(this.url);
   private role;
 
@@ -30,7 +30,9 @@ export class MessageCommunicationService{
   public rowCounterUDComponentSubject = new Subject<MessageModel>();
   public endTransactionComponentSubject = new Subject<MessageModel>();
 
-  constructor(){
+  constructor(
+  )
+  {
     this.registerCallbacks();
   }
 
@@ -100,13 +102,16 @@ export class MessageCommunicationService{
     });
   }
 
-  sendMessage(component, message) {
+  sendMessage(component, message,isFromDevice?,slideIndex?) {
     const messageToSend = new MessageModel();
     messageToSend.clientId = this.clientToSendTo;
     messageToSend.component = component;
     messageToSend.message = message;
+    messageToSend.isFromDevice = isFromDevice;
+    messageToSend.slideIndex = slideIndex;
     this.socket.emit(globals.MESSAGE,messageToSend);
   }
+
 
   setBackgroundOverlay(showBg){
     const message = new MessageModel();

@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy,ElementRef,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 // import { Ng2DeviceService } from 'ng2-device-detector';
+import { NavigationService } from '../../services/navigation.service';
+import { UserService } from '../../services/user.service';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { MessageCommunicationService } from '../../services/message-communication.service';
 
@@ -16,28 +20,32 @@ declare var jQuery:any;
   templateUrl: './fund-navigator.component.html',
   styleUrls: ['./fund-navigator.component.css']
 })
-export class FundNavigatorComponent implements OnInit {
-  // isMobile = this.deviceService.device !== globals.UNKNOWN;
-
+export class FundNavigatorComponent implements OnInit,OnDestroy {
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+   @ViewChild('iframe') iframe: ElementRef;
   constructor(
     private router: Router,
-    private messageCommunicationService: MessageCommunicationService
-    // private deviceService: Ng2DeviceService
+    private messageCommunicationService: MessageCommunicationService,
+    private navigationService: NavigationService,
+    private userService: UserService
   ){}
 
   ngOnInit() {
     this.messageCommunicationService.setBackgroundOverlay(false);
 
-    // if(!this.isMobile){
-    //   console.log('this is pc');
-
-    // }
-
-    this.messageCommunicationService.fundNavigatorComponentSubject.subscribe(
+    this.messageCommunicationService.fundNavigatorComponentSubject
+    .takeUntil(this.ngUnsubscribe)
+    .subscribe(
       (message) => {
         this.router.navigate(['/'+globals.ROWCOUNTER_UD]);
+        this.navigationService.nextStep();
       }
     );
+  }
+
+  ngOnDestroy(){
+     this.ngUnsubscribe.next();
+     this.ngUnsubscribe.complete();
   }
 
   onNext(){
@@ -48,16 +56,21 @@ export class FundNavigatorComponent implements OnInit {
 
     this.messageCommunicationService.sendMessage(component,message);
     this.router.navigate(['/'+globals.ROWCOUNTER_UD]);
+    this.navigationService.nextStep();
   }
 
   onIframeclick(){
     console.log('iframe loaded!!');
-    // jQuery('#ctl00_ContentPlaceHolder1_Tap1').click(function(){
-    //   alert('1234');
-    // });
-    // console.log(jQuery('#ctl00_ContentPlaceHolder1_Tap1'));
-
-    // console.log(jQuery('#fund-navigator-iframe').contents());
+    // jQuery("#PDFModal").modal('show');
+    
+    // let doc =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
+    // doc.openFundFactSheet('K-CASH');
+    // var iframepos = jQuery("#fund-navigator-iframe").position();
+    // jQuery('#fund-navigator-iframe').contents().find('html').on('click', function (e) { 
+    //     var x = e.clientX + iframepos.left; 
+    //     var y = e.clientY + iframepos.top;
+    //     console.log(x + " " + y);
+    // })
   }
 
 }

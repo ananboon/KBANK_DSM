@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { MessageCommunicationService } from '../../services/message-communication.service';
 import { NavigationService } from '../../services/navigation.service'
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 import { UserService } from '../../services/user.service';
 
 import * as globals from '../../globals'
@@ -17,7 +19,7 @@ export class ConnectComponent implements OnInit, OnDestroy{
 
   errorRoom = false;
   errorMessage = '';
-
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
   constructor(
     private messageCommunicationService: MessageCommunicationService,
     private userService: UserService,
@@ -29,7 +31,9 @@ export class ConnectComponent implements OnInit, OnDestroy{
     this.navigationService.showNavigation = true;
     this.navigationService.showUserLoginNavigation = true;
 
-    this.messageCommunicationService.connectSubject.subscribe((message) => {
+    this.messageCommunicationService.connectSubject
+    .takeUntil(this.ngUnsubscribe)
+    .subscribe((message) => {
       if(message.component === globals.GET_ROOM_STATUS){
         const status = ''+message.message;
         this.errorMessage = status;
@@ -50,6 +54,7 @@ export class ConnectComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(){
-    
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

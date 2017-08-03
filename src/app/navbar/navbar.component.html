@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default text-center" *ngIf="navigationService.showNavigation">
+<!-- <nav class="navbar navbar-default text-center" *ngIf="navigationService.showNavigation">
   <div class="container-fluid">
     <div class="container vertical-align">
       <div class="row">
@@ -30,5 +30,61 @@
       </div>
     </div>
   </div>
+</nav> -->
+
+
+
+<nav class="navbar navbar-default text-center" *ngIf="navigationService.showNavigation && navigationService.showUserLoginNavigation">
+   <div class="container-fluid">       
+        <div id="smartwizard">
+          <ul>
+            <li>
+                <a href="#step-1">
+                <div>
+                  <img src="assets/Logos/KBank_Navbar_Logo.png" alt="Navbar Logo">
+                  <span class="LogoText">
+                    Digital Sales<br>
+                    Management
+                  </span>
+                </div>
+                </a>
+            </li>
+            <li><a href="#step-2">ลงชื่อเข้าใช้<br/></a></li>
+          </ul>
+
+        </div>
+    </div>
+
 </nav>
+
+<nav class="navbar navbar-default text-center" id="smartwizardNav">
+   <div class="container-fluid">
+        <div id="smartwizard2">
+            <ul>
+                <li>
+                  <a href="">
+                  <div>
+                    <img src="assets/Logos/KBank_Navbar_Logo.png" alt="Navbar Logo">
+                    <span class="LogoText">
+                      Digital Sales<br>
+                      Management
+                    </span>
+                  </div>
+                  </a>
+                </li>
+                <li><a href="">เริ่มต้นการทำธุรกรรม</a></li>
+                <li><a href="">ระบุตัวตนลูกค้าและทำ<br/>แบบประเมินความเสี่ยง</a></li>
+                <li><a href="">ประเมินกองทุนที่<br>เหมาะสมกับลูกค้า</a></li>
+                <li><a href="">นำเสนอหนังสือ<br/>ชี้ชวนกองทุน</a></li>
+                <li><a href="">ทำธุรกรรมผ่าน<br/>ระบบของธนาคาร</a></li>
+                <li><a href="">จบการทำธุรกรรม</a></li>
+            </ul>
+        </div> 
+    </div>
+</nav>
+
+
+
+
+
 

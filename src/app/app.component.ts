@@ -50,6 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
             this.router.navigate(['/'+globals.LOGIN]);
           }else{
             this.router.navigate(['/'+globals.CONNECT]);
+            location.reload();
           }
         }
       }
@@ -74,7 +75,8 @@ export class AppComponent implements OnInit, OnDestroy {
             this.recorderService.recording = false;
             this.navigationService.disableNavBarAndUserLoginNavigation();
             this.router.navigate(['/'+globals.HOME]);
-
+            this.navigationService.reset();
+            this.navigationService.hideNavigationbar();
             //if mobile disconnect by closing tab then stop recording
             if(!this.isMobile){
               this.recorderService.stopRecording();
@@ -102,6 +104,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.messageCommunicationService.sendMessage(component,message);
     this.navigationService.disableNavBarAndUserLoginNavigation();
+    this.navigationService.reset();
+    this.navigationService.hideNavigationbar();
     this.router.navigate(['/'+globals.HOME]);
   }
 
@@ -114,7 +118,8 @@ export class AppComponent implements OnInit, OnDestroy {
     messageModel.message = message;
 
     this.messageCommunicationService.sendMessage(component,message);
-    this.messageCommunicationService.logoutSubject.next(messageModel);
+    window.location.reload();
+    // this.messageCommunicationService.logoutSubject.next(messageModel);
 
     jQuery("#logoutModal").modal('hide');
   }
@@ -124,6 +129,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-
+    console.log('Debug componetn destroy');
   }
 }

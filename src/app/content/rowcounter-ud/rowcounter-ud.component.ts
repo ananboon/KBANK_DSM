@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Ng2DeviceService } from 'ng2-device-detector';
 
 import { MessageCommunicationService } from '../../services/message-communication.service';
+import { NavigationService } from '../../services/navigation.service';
 
 import { MessageModel } from '../../models/message.model';
 
@@ -18,7 +19,8 @@ export class RowCounterUDComponent implements OnInit {
   constructor(
     private router: Router,
     private messageCommunicationService: MessageCommunicationService,
-    private deviceService: Ng2DeviceService
+    private deviceService: Ng2DeviceService,
+    private navigationService: NavigationService
   ){}
 
   isMobile = this.deviceService.device !== globals.UNKNOWN;
@@ -29,6 +31,7 @@ export class RowCounterUDComponent implements OnInit {
     this.messageCommunicationService.rowCounterUDComponentSubject.subscribe(
       (message) => {
         this.router.navigate(['/'+globals.END_TRANSACTION]);
+        this.navigationService.nextStep();
       }
     );
   }
@@ -40,5 +43,6 @@ export class RowCounterUDComponent implements OnInit {
     const message = globals.TO_END_OF_TRANSACTION;
     this.messageCommunicationService.sendMessage(component,message);
     this.router.navigate(['/'+globals.END_TRANSACTION]);
+    this.navigationService.nextStep();
   }
 }

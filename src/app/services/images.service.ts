@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 export class ImageService {
 
   bannerImages = [];
-  rowCounterUdImages = [];
+  rowCounterProcedureImages = [];
   constructor(
     @Inject(Http) private http: Http
   ){}
@@ -15,6 +15,11 @@ export class ImageService {
     this.http.get('./assets/Banner/banners.json').subscribe(
       (response: Response) => {
         this.bannerImages = response.json();
+      }
+    );
+    this.http.get('./assets/Banner/rowcounterImages.json').subscribe(
+      (response: Response) => {
+        this.rowCounterProcedureImages = response.json();
       }
     );
   }

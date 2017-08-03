@@ -26,7 +26,8 @@
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "./js/extras.js"
+        "./js/extras.js",
+         "../node_modules/smartwizard/dist/js/jquery.smartWizard.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

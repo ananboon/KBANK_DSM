@@ -31,3 +31,28 @@ nav {
 .navigation li {
   padding: 10px;
 }
+
+.LogoText{
+  float: right;
+}
+
+#smartwizard a,#smartwizard2 a {
+  height: 75px;
+  width: 180px;
+}
+.container-fluid{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.sw-theme-arrows > ul.step-anchor > li.done > a,
+.sw-theme-arrows > ul.step-anchor > li.active > a
+{
+  background: rgb(0,168,81) !important;
+  border-color: rgb(0,168,81) !important;
+}
+
+.sw-theme-arrows > ul.step-anchor > li.done > a:after,
+.sw-theme-arrows > ul.step-anchor > li.active > a:after
+{
+  border-left: 30px solid rgb(0,168,81) !important;
+}
