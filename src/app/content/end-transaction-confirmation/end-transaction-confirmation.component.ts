@@ -44,7 +44,7 @@ export class EndTransactionConfirmationComponent implements OnInit,OnDestroy {
             let body = new MessageModel();
             body.component = globals.RECORDER;
             body.message = globals.STOP_RECORDING;
-
+            this.recorderService.finishTransaction = 1;
             this.messageCommunicationService.recordingSubject.next(body);
           }
         }
@@ -52,8 +52,9 @@ export class EndTransactionConfirmationComponent implements OnInit,OnDestroy {
     );
   }
   ngOnDestroy(){
-     this.ngUnsubscribe.next();
-     this.ngUnsubscribe.complete();
+    this.recorderService.finishTransaction = 0;
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   onEndTransaction(){

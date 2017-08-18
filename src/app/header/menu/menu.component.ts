@@ -20,7 +20,7 @@ declare var jQuery:any;
 export class MenuComponent{
   constructor(
     private router: Router,
-    private userService: UserService,
+    public userService: UserService,
     private messageCommunicationService: MessageCommunicationService,
     private recorderService: RecorderService,
     private deviceService: Ng2DeviceService

@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './header/menu/menu.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ContentComponent } from './content/content.component';
+// import { ContentComponent } from './content/content.component';
 import { LoginComponent } from './content/login/login.component';
 import { BannerComponent } from './content/banner/banner.component';
 import { ProfileCardComponent } from './content/profile_card/profile_card.component';

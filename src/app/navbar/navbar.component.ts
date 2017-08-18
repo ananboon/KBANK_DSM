@@ -13,10 +13,8 @@ declare var jQuery:any;
   			]
 })
 export class NavbarComponent implements OnInit{
-  constructor(private navigationService: NavigationService){}
+  constructor(public navigationService: NavigationService){}
     ngOnInit(){
-    	console.log('navbar ngOnInit');
-
   	jQuery(document).ready(function(){
 
             // Smart Wizard

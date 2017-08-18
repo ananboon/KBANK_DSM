@@ -37,8 +37,7 @@ export class BannerComponent implements OnDestroy, OnInit{
   isMobile = this.deviceService.device !== globals.UNKNOWN;
   nextWording:string = globals.START_TRANSACTION;
 
-  // draggable = this.isMobile;
-
+  private ignoreEvent_SlideChange:boolean = false;
 
   ngOnInit(){
     this.messageCommunicationService.setBackgroundOverlay(false);
@@ -61,17 +60,18 @@ export class BannerComponent implements OnDestroy, OnInit{
         const component = message.component;
         const body = message.message;
         if(body === globals.TO_PROFILE_CARD){
-          console.log(message);
           this.navigationService.startTransaction();
           this.router.navigate(['/'+globals.PROFILE_CARD]);
         }else if(body === globals.TO_FUND_NAVIGATOR){
           this.router.navigate(['/'+globals.FUND_NAVIGATOR]);
           this.navigationService.nextStep();
         }else if(body === globals.SLIDE_CHANGE){
+          this.ignoreEvent_SlideChange = true;
           this.usefulSwiper.setIndex(message.slideIndex);
         }
       }
     );
+
   }
 
    ngOnDestroy(){
@@ -137,12 +137,20 @@ export class BannerComponent implements OnDestroy, OnInit{
   }
 
   onIndexChange(event){
+
+    let isIgnore = this.ignoreEvent_SlideChange;
+    this.ignoreEvent_SlideChange = false;
+    if(isIgnore){return;}
+
     const message = globals.SLIDE_CHANGE;
     const component = globals.BANNER;
-    if(this.userService.isCurrentUserDevice()){
-      this.messageCommunicationService.sendMessage(component,message,true,event);
-    }
+    this.messageCommunicationService.sendMessage(component,message,null,event);
+
 
   }
+
+  // testalert(n){
+  //   alert(n);
+  // }
 
 }

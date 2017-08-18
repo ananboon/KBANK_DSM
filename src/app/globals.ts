@@ -48,6 +48,18 @@ export const STOP_RECORDING = 'stop-recording';
 export const SHOW_STOP_RECORDER = 'show-stop-recorder';
 
 export const SMARTWIZARD_ID2 = '#smartwizard2';
-export const SMARTWIZARDNAV_ID = '#smartwizardNav'
+export const SMARTWIZARDNAV_ID = '#smartwizardNav';
 
-export const SLIDE_CHANGE = 'Slide-Change'
+export const SLIDE_CHANGE = 'Slide-Change';
+
+export const CLICKED_FUN_NAV = 'click';
+export const SCROLL_FUN_NAV = 'scroll';
+
+// export const ANGULAR_URL = 'https://3d91969f.ngrok.io';
+// export const NODEJS_URL = 'https://9ef44d7e.ngrok.io';
+
+export const ANGULAR_URL = 'https://35.198.202.147';
+export const NODEJS_URL = 'https://35.198.202.147';
+
+
+export enum TransactionStatus {N=0 ,Y=1};

@@ -15,6 +15,7 @@ export class RecorderService{
   accountName = '';
   accountCIS = '';
   recording = false;
+  finishTransaction:number = 0;
 
   constructor(
     private userService: UserService
@@ -42,7 +43,11 @@ export class RecorderService{
         date : new Date().toLocaleString()
       }
     }else if(command === globals.STOP_RECORDING){
+      let cuttentDateTime = new Date().toLocaleString();
       body.component = globals.STOP_RECORDING;
+      body.message = {
+        fileName : this.accountCIS+'_'+this.userService.user.id+'_'+cuttentDateTime+'_'+globals.TransactionStatus[this.finishTransaction]
+      }
     }
 
     window.postMessage(body,'*');

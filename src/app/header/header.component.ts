@@ -15,7 +15,7 @@ import { RecorderService } from '../services/recorder.service';
 export class HeaderComponent implements OnInit{
   constructor(
     private userService: UserService,
-    private recorderService: RecorderService,
+    public recorderService: RecorderService,
     private deviceService: Ng2DeviceService
   ){}
 

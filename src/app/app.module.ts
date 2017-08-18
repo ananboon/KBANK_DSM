@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './header/menu/menu.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ContentComponent } from './content/content.component';
+// import { ContentComponent } from './content/content.component';
 import { LoginComponent } from './content/login/login.component';
 import { ConnectComponent } from './content/connect/connect.component';
 import { BannerComponent } from './content/banner/banner.component';
@@ -33,6 +33,7 @@ import { NavigationService } from './services/navigation.service';
 import { ImageService } from './services/images.service';
 import { CanActivateViaAuthGuardService } from './services/canactivate-via-auth-guard.service';
 import { CanActivateHomeToCustomerConsentGuardService } from './services/canactivate-home-to-customer-consent-guard.service';
+import { CoordinateCalculatorService } from './services/coordinate-Calculator.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -46,7 +47,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     HeaderComponent,
     MenuComponent,
     NavbarComponent,
-    ContentComponent,
+    // ContentComponent,
     LoginComponent,
     BannerComponent,
     ProfileCardComponent,
@@ -75,7 +76,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     NavigationService,
     ImageService,
     CanActivateViaAuthGuardService,
-    CanActivateHomeToCustomerConsentGuardService
+    CanActivateHomeToCustomerConsentGuardService,
+    CoordinateCalculatorService
   ],
   bootstrap: [AppComponent]
 })

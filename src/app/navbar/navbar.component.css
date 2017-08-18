@@ -38,8 +38,15 @@ nav {
 
 #smartwizard a,#smartwizard2 a {
   height: 75px;
-  width: 180px;
+  width: 100%;
 }
+
+#smartwizard li,#smartwizard2 li {
+  height: 75px;
+  width: 14%;
+  min-width: 152px;
+}
+
 .container-fluid{
   padding-left: 0px;
   padding-right: 0px;
@@ -56,3 +63,15 @@ nav {
 {
   border-left: 30px solid rgb(0,168,81) !important;
 }
+
+.container-fluid div ul li a:hover,.container-fluid div ul li a{
+  cursor: default;
+}
+
+@media only screen and (min-device-width: 800px) and (max-device-width: 1280px) and (orientation: landscape) {
+  nav {
+    font-size :20px;
+  }
+}
+
+

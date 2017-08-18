@@ -7,12 +7,11 @@ import * as globals from '../globals';
 import { UserService } from './user.service';
 import { MessageModel } from '../models/message.model'
 
-
 Injectable()
 export class MessageCommunicationService{
   public roomId: string;
   public clientToSendTo;
-  private url = 'https://a90eb0b2.ngrok.io';
+  private url = globals.NODEJS_URL;
   private socket = io(this.url);
   private role;
 
@@ -112,6 +111,20 @@ export class MessageCommunicationService{
     this.socket.emit(globals.MESSAGE,messageToSend);
   }
 
+  sendMessageCoordinate(component, message,isFromDevice,coordinate_x,coordinate_y,offsetTop,iframeWidth,iframeHeight,documentHeight){
+    const messageToSend = new MessageModel();
+    messageToSend.clientId = this.clientToSendTo;
+    messageToSend.component = component;
+    messageToSend.message = message;
+    messageToSend.isFromDevice = isFromDevice;
+    messageToSend.coordinate_x = coordinate_x;
+    messageToSend.coordinate_y = coordinate_y;
+    messageToSend.offsetTop = offsetTop;
+    messageToSend.iframeWidth = iframeWidth;
+    messageToSend.iframeHeight = iframeHeight;
+    messageToSend.documentHeight = documentHeight;
+    this.socket.emit(globals.MESSAGE,messageToSend);
+  }
 
   setBackgroundOverlay(showBg){
     const message = new MessageModel();

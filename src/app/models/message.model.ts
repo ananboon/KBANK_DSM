@@ -4,5 +4,12 @@ export class MessageModel {
   public message;
   public isFromDevice: boolean;
   public slideIndex : number;
+
+  public coordinate_x: number;
+  public coordinate_y: number;
+  public offsetTop:number;
+  public iframeWidth:number;
+  public iframeHeight:number;
+  public documentHeight:number;
   constructor(){}
 }
