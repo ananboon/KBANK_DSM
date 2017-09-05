@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,OnDestroy,ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewChild,OnDestroy,ElementRef   } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
@@ -19,7 +19,7 @@ declare var jQuery:any;
   templateUrl: './banner.component.html',
   styleUrls: ['./banner.component.css']
 })
-export class BannerComponent implements OnDestroy, OnInit{
+export class BannerComponent implements OnDestroy, OnInit {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   @ViewChild('usefulSwiper') public usefulSwiper: any;
 
@@ -40,6 +40,9 @@ export class BannerComponent implements OnDestroy, OnInit{
   private ignoreEvent_SlideChange:boolean = false;
 
   ngOnInit(){
+    // console.log('user service ::',this.userService.getNumberOfPeopleInRoom());
+    // console.log('user service ::');
+
     this.messageCommunicationService.setBackgroundOverlay(false);
 
     const routeName = this.router.url;
@@ -74,6 +77,10 @@ export class BannerComponent implements OnDestroy, OnInit{
 
   }
 
+  // ngAfterViewInit(){
+  //   this.usefulSwiper.setIndex(0);
+  // }
+
    ngOnDestroy(){
      this.ngUnsubscribe.next();
      this.ngUnsubscribe.complete();
@@ -96,9 +103,10 @@ export class BannerComponent implements OnDestroy, OnInit{
       this.navigationService.nextStep();
     }
 
-     this.ngUnsubscribe.next();
-     this.ngUnsubscribe.complete();
+     // this.ngUnsubscribe.next();
+     // this.ngUnsubscribe.complete();
   }
+
 
   getActive(index){
     return index === 0 ? 'active':'';
@@ -125,7 +133,7 @@ export class BannerComponent implements OnDestroy, OnInit{
         loop: true,
         loopedSlides: this.banners.length,
         pagination: '.swiper-pagination',
-        paginationClickable: false,
+        paginationClickable: true,
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev'
       };

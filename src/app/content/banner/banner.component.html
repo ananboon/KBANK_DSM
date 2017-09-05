@@ -12,7 +12,7 @@
     <div class="carousel-wrapper">
       <swiper [config]="config" #usefulSwiper (indexChange)="onIndexChange($event)">
         <div [ngClass]="getActive(i)" *ngFor="let banner of banners; let i=index" >
-          <img src="{{banner}}" class="center-block img-responsive carousel-image" alt="test">
+          <img src="{{banner}}" class="center-block img-responsive carousel-image" alt="">
         </div>
       </swiper>
       <div class="swiper-pagination"></div>

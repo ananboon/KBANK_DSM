@@ -5,7 +5,7 @@ import * as io from 'socket.io-client';
 import * as globals from '../globals';
 
 import { UserService } from './user.service';
-import { MessageModel } from '../models/message.model'
+import { MessageModel } from '../models/message.model';
 
 Injectable()
 export class MessageCommunicationService{
@@ -28,6 +28,8 @@ export class MessageCommunicationService{
   public fundNavigatorComponentSubject = new Subject<MessageModel>();
   public rowCounterUDComponentSubject = new Subject<MessageModel>();
   public endTransactionComponentSubject = new Subject<MessageModel>();
+
+
 
   constructor(
   )
@@ -142,4 +144,5 @@ export class MessageCommunicationService{
   destroyConnections(){
 
   }
+
 }

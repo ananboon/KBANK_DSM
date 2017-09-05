@@ -62,6 +62,7 @@ nav {
 .sw-theme-arrows > ul.step-anchor > li.active > a:after
 {
   border-left: 30px solid rgb(0,168,81) !important;
+  left : 99.5%;
 }
 
 .container-fluid div ul li a:hover,.container-fluid div ul li a{

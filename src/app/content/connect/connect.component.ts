@@ -28,6 +28,11 @@ export class ConnectComponent implements OnInit, OnDestroy{
   ){}
 
   ngOnInit(){
+
+    if(!this.userService.isCurrentUserDevice()){
+      this.router.navigate(['/'+globals.LOGIN]);
+    }
+
     this.navigationService.showNavigation = true;
     this.navigationService.showUserLoginNavigation = true;
 

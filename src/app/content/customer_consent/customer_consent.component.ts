@@ -53,8 +53,8 @@ export class CustomerConsentComponent implements OnInit,OnDestroy{
         const body = message.message;
         if(body === globals.TO_ROWCOUNTER_PROCEDURE){
           this.router.navigate(['/'+globals.ROWCOUNTER_PROCEDURES]);
-          console.log('Debug customer consent ROWCOUNTER_PROCEDURES');
-          console.log('Debug Message',message);
+          // console.log('Debug customer consent ROWCOUNTER_PROCEDURES');
+          // console.log('Debug Message',message);
           this.navigationService.nextStep();
         }else if(body === globals.START_RECORDING){
           const accountName = this.accountName.nativeElement.value;

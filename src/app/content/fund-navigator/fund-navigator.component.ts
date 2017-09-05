@@ -23,7 +23,7 @@ declare var jQuery:any;
 })
 export class FundNavigatorComponent implements OnInit,OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  iframeURL:string = globals.ANGULAR_URL;
+  iframeURL:string = globals.FUND_NAV_URL;
   @ViewChild('iframe') iframe: ElementRef;
   constructor(
     private router: Router,
