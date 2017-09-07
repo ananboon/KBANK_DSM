@@ -62,6 +62,6 @@ export const ANGULAR_URL = 'https://35.198.202.147';
 export const NODEJS_URL = 'https://35.198.202.147';
 
 // export const FUND_NAV_URL = 'https://k-invest.kasikornbankgroup.com/FundNavigator/FundNavigator.aspx';
- export const FUND_NAV_URL = 'https://202.183.132.205';
+export const FUND_NAV_URL = 'https://202.183.132.205/FundNavigator/FundNavigator.aspx';
 
 export enum TransactionStatus {N=0 ,Y=1};

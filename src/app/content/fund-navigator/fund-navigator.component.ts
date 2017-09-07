@@ -60,6 +60,7 @@ export class FundNavigatorComponent implements OnInit,OnDestroy {
           }
       }
     );
+
   }
 
   ngOnDestroy(){

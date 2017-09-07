@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy{
       }
     });
     
-
+    // this.onIframeclick();
   }
 
   onSubmit(){
@@ -68,24 +68,41 @@ export class LoginComponent implements OnInit, OnDestroy{
      this.ngUnsubscribe.complete();
   }
 
-  // onIframeclick(){
-  //   console.log('iframe loaded!!');
-  //   // let doc =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
-  //   // console.log(jQuery("#object1").contents().find("body"));
 
-  //   let iframepos = jQuery("#object1").position();
-  //   jQuery('#object1').contents().find('body').on('click', function (e) { 
-  //       var x = e.clientX + iframepos.left; 
-  //       var y = e.clientY + iframepos.top;
-  //       console.log(x + " " + y);
-  //   });
+  onIframeclick(){
+    // let fundavigatorTab = window.open('https://35.198.202.147', '_blank');
+    // let theDoc = fundavigatorTab.document;
+    // let theScript = document.createElement('script');
 
-  //   jQuery('#object1').on('click', function (e) { console.log('click'); });
+    // function injectThis() {
+    //     // The code you want to inject goes here
+    //     alert("jQuery(document).on('click', function (e,callback) { alert('123');});");
+    // }
+    // theScript.innerHTML = 'window.onload = ' + injectThis.toString() + ';';
+    // theDoc.body.appendChild(theScript);
 
-  //   console.log( jQuery('#object1').contents().find('body') );
-  // }
+    // let doc =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
+    // console.log('Doc',doc);
+    // jQuery( doc ).ready(function() {
+    //   jQuery(doc)
+    //   .on('click', function (e,callback) { 
+    //     console.log(e.clientX);
+    //   })
+    // });
 
-  // myEvent(event) {
-  //   console.log(event);
-  // }
+    // let iframepos = jQuery("#object1").position();
+    // jQuery('#object1').contents().find('body').on('click', function (e) { 
+    //     var x = e.clientX + iframepos.left; 
+    //     var y = e.clientY + iframepos.top;
+    //     console.log(x + " " + y);
+    // });
+
+    // jQuery('#object1').on('click', function (e) { console.log('click'); });
+
+    // console.log( jQuery('#object1').contents().find('body') );
+  }
+
+  myEvent(event) {
+    console.log(event);
+  }
 }

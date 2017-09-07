@@ -28,7 +28,7 @@ const routes: Routes = [
   {path: globals.PROFILE_CARD, component: ProfileCardComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
   {path: globals.CUSTOMER_CONSENT, component: CustomerConsentComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
   {path: globals.ROWCOUNTER_PROCEDURES, component: BannerComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
-  {path: globals.FUND_NAVIGATOR, component: FundNavigatorComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
+  {path: globals.FUND_NAVIGATOR, component: FundNavigatorComponent, canActivate: []},
   {path: globals.ROWCOUNTER_UD, component: RowCounterUDComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
   {path: globals.END_TRANSACTION, component: EndTransactionConfirmationComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]},
   {path: '**', component: LoginComponent, canActivate: [CanActivateHomeToCustomerConsentGuardService]}
