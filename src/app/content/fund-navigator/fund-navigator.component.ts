@@ -79,11 +79,13 @@ export class FundNavigatorComponent implements OnInit,OnDestroy {
     this.navigationService.nextStep();
   }
 
+  onModalLoad(){
+    // jQuery("#PDFModal").modal('show');
+  }
 
 
 
   onIframeLoaded(){
-    // jQuery("#PDFModal").modal('show');
     
     let doc =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
     doc['IgnoreScrollEvent'] = false;
