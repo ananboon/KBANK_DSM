@@ -11,5 +11,8 @@ export class MessageModel {
   public iframeWidth:number;
   public iframeHeight:number;
   public documentHeight:number;
+
+  public fund_fact_sheet_url:string;
+
   constructor(){}
 }

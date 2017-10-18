@@ -46,7 +46,7 @@ export class RecorderService{
       let cuttentDateTime = new Date().toLocaleString();
       body.component = globals.STOP_RECORDING;
       body.message = {
-        fileName : this.accountCIS+'_'+this.userService.user.id+'_'+cuttentDateTime+'_'+globals.TransactionStatus[this.finishTransaction]
+        fileName : this.accountCIS+'_'+this.userService.user.id+'_'+cuttentDateTime+'_'+globals.TransactionStatus[this.finishTransaction]+'__DSM'
       }
     }
 

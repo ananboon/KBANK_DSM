@@ -22,7 +22,8 @@ declare var jQuery:any;
 export class LoginComponent implements OnInit, OnDestroy{
   @ViewChild('loginForm') loginForm: NgForm;
   @ViewChild('iframe') iframe: ElementRef;
-  errorMessage = false;
+  public errorMessageDisplay :string;
+  showerrorMessage = false;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   constructor(
     private userService: UserService,
@@ -42,9 +43,11 @@ export class LoginComponent implements OnInit, OnDestroy{
       const component = message.component;
       const body = message.message;
       if(component === globals.LOGIN_ERROR){
-        this.errorMessage = true;
+        this.showerrorMessage = true;
+        this.errorMessageDisplay = message.message
       }else if(component === globals.USER_DATA){
-        this.errorMessage = false;
+        this.showerrorMessage = false;
+        this.errorMessageDisplay = '';
         this.userService.setUser(message.message);
         this.navigationService.disableNavBarAndUserLoginNavigation();
         this.router.navigate(['/'+globals.HOME]);

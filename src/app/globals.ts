@@ -55,13 +55,16 @@ export const SLIDE_CHANGE = 'Slide-Change';
 export const CLICKED_FUN_NAV = 'click';
 export const SCROLL_FUN_NAV = 'scroll';
 
-export const ANGULAR_URL = 'https://d9b0c2e0.ngrok.io';
-export const NODEJS_URL = 'https://8887e415.ngrok.io';
+// export const ANGULAR_URL = 'https://3d91969f.ngrok.io';
+// export const NODEJS_URL = 'https://9ef44d7e.ngrok.io';
 
-// export const ANGULAR_URL = 'https://35.198.202.147';
-// export const NODEJS_URL = 'https://35.198.202.147';
+export const ANGULAR_URL = 'https://35.198.202.147';
+export const NODEJS_URL = 'https://35.198.202.147';
 
 // export const FUND_NAV_URL = 'https://k-invest.kasikornbankgroup.com/FundNavigator/FundNavigator.aspx';
 export const FUND_NAV_URL = 'https://202.183.132.205/FundNavigator/FundNavigator.aspx';
 
 export enum TransactionStatus {N=0 ,Y=1};
+
+export const OPEN_FUND_FACT_SHEET = 'OPEN_FUND_FACT_SHEET';
+export const CLOSE_FUND_FACT_SHEET = 'CLOSE_FUND_FACT_SHEET';

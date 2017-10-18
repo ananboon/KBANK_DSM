@@ -1,35 +1,36 @@
 <div class="container">
   <div class="row text-center">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <iframe id='fund-navigator-iframe' #iframe src="https://202.183.132.205/FundNavigator/FundNavigator.aspx" width="100%" height="500" (load)="onModalLoad();">
+
+      <iframe id='fund-navigator-iframe' name='fund-navigator-iframe' #iframe src="https://35.198.202.147/proxy/k-invest.kasikornbankgroup.com/FundNavigator/FundNavigator.aspx" width="100%" height="500px"
+      (load)="onIframeLoaded();">
       </iframe>
+      <div [ngClass]="{'overlayIframe': userService.isCurrentUserDevice() }"></div>
+   
 <!--       <iframe id='fund-navigator-iframe' #iframe src="iframeURL" width="100%" height="430"
+https://202.183.132.205/FundNavigator/FundNavigator.aspx
       (load)="onIframeLoaded();">
       </iframe> -->
-      <button type="button" class="btn btn-main btn-lg" [disabled]="!userService.isCurrentUserDevice()" (click)="onNext()">ยืนยันเรื่องกองทุน</button>
+      <button type="button"  class="btn btn-main btn-lg" *ngIf="!userService.isCurrentUserDevice()" [disabled]="userService.isCurrentUserDevice()" (click)="onNext()">ยืนยันการเลือกกองทุน</button>
     </div>
 <!--     <div class="col-md-2"></div> -->
   </div>
 </div>
 
 <!-- PDF Modal -->
-<div id="PDFModal" class="modal fade" role="dialog">
+<div id="PDFModal"  class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
- <!--      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"></h4>
-      </div> -->
       <div class="modal-body text-center">
-        <iframe id='iframe2' #iframe2
-        src="https://docs.google.com/gview?url=https://k-invest.kasikornbankgroup.com/FundFactSheet/K-CASH.pdf?v=295efae2-c169-148d-6bba-f70baa77ee8f&embedded=true" width="100%" height="550">
+        <iframe id='func-fact-sheet-iframe'
+        src="" width="100%" height="430">
         </iframe>
       </div>
-<!--       <div class="modal-footer">
-        <button type="button" class="btn btn-main" (click)="onLogout()">ยืนยัน</button>
-        <button type="button" class="btn btn-cancel" data-dismiss="modal">ไม่ยืนยัน</button>
-      </div> -->
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-cancel" (click)="OnPDFModalHidden();">ปิด</button>
+      </div>
     </div>
   </div>
 </div>

@@ -128,6 +128,15 @@ export class MessageCommunicationService{
     this.socket.emit(globals.MESSAGE,messageToSend);
   }
 
+  sendMessageEventFundFactSheet(component,message,url?){
+    const messageToSend = new MessageModel();
+    messageToSend.clientId = this.clientToSendTo;
+    messageToSend.component = component;
+    messageToSend.message = message;
+    messageToSend.fund_fact_sheet_url = url;
+    this.socket.emit(globals.MESSAGE,messageToSend);
+  }
+
   setBackgroundOverlay(showBg){
     const message = new MessageModel();
     message.component = globals.BACKGROUND;

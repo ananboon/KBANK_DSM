@@ -35,10 +35,6 @@ export class FundNavigatorComponent implements OnInit,OnDestroy {
     if (window.addEventListener) {
      window.addEventListener("message", this.receiveMessage.bind(this), false);
      } 
-    //  else {
-    //   (<any>window).attachEvent("onmessage", this.receiveMessage.bind(this));
-    // }
-
   }
 
 
@@ -57,9 +53,15 @@ export class FundNavigatorComponent implements OnInit,OnDestroy {
             this.callBackOnClickedMessage(message);
           }else if(message.message === globals.SCROLL_FUN_NAV){
             this.callBackOnScrollMessage(message);
+          }else if(message.message === globals.OPEN_FUND_FACT_SHEET){
+            this.callBackOnOpenFundFactSheetMessage(message);
+          }else if(message.message === globals.CLOSE_FUND_FACT_SHEET){
+            this.hidePDFModal();
           }
       }
     );
+
+
 
   }
 
@@ -79,9 +81,6 @@ export class FundNavigatorComponent implements OnInit,OnDestroy {
     this.navigationService.nextStep();
   }
 
-  onModalLoad(){
-    // jQuery("#PDFModal").modal('show');
-  }
 
 
 
@@ -89,70 +88,48 @@ export class FundNavigatorComponent implements OnInit,OnDestroy {
     
     let doc =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
     doc['IgnoreScrollEvent'] = false;
-    // doc.openFundFactSheet('K-CASH');
-    // let iframepos = jQuery("#fund-navigator-iframe").position();
-    jQuery( doc ).ready(function() {
+    doc['isCurrentUserDevice'] = this.userService.isCurrentUserDevice();
+  
+    // jQuery('iframe')[0].contentWindow.onbeforeunload = function () {
+    //   console.log('before unload');
+    // };
+
+
+    jQuery( doc ).ready(function() {;
+
+      // jQuery(window).bind('beforeunload', ()=>console.log('beforeunload'));
+
+      jQuery(doc).find('#ctl00_Language_hlTHLanguage').parent().hide();
+
+      if(doc['isCurrentUserDevice']){
+        var style = jQuery('<style> .overlayIframe { position: fixed; z-index:10000; width: 100%; height: 100%; left: 0; top: 0; touch-action:none; }</style>');
+        jQuery(doc.head).append(style);
+
+        jQuery(doc.body).append( "<div id='overlayId' class='overlayIframe'></div>" );
+      }
 
       jQuery(doc)
       .on('click', function (e,callback) { 
-          // console.log("callback",callback);
-          // let x;
-          // let y;
-          // let offsetTop = jQuery(doc).scrollTop();
-          // let offsetLeft;
-          // let iframeHeight = jQuery('#fund-navigator-iframe').height();
-          // let iframeWidth = jQuery(doc).width();
-          // let documentHeight = jQuery(doc).height();
-          // let documentWidth = jQuery(doc).width();
-          // let jsonMessage = {
-          //     x:null,
-          //     y:null,
-          //     offsetTop:offsetTop,
-          //     documentHeight:documentHeight,
-          //     width:iframeWidth,
-          //     height:iframeHeight,
-          //     eventType:e.type
-          // };
-          // console.log('event type',e.type);
-          // if(e.type === "click"){
-          //   console.log('clicked event fired!!!!');
-          //   x = e.clientX; 
-          //   y = e.clientY;
-            
-          //   jsonMessage.x = x;
-          //   jsonMessage.y = y;
+      
+          if(!doc['isCurrentUserDevice']){
           let jsonMessage = reCaptureDocumentSize(e.type,e.clientX,e.clientY);
 
             if(callback !== 'callback'){
               parent.postMessage(jsonMessage,globals.ANGULAR_URL);
             }
+          }
  
-          // }
-          // else if(e.type === "scroll"){
-
-          //   clearTimeout( jQuery.data( this, "scrollCheck" ) );
-          //   jQuery.data( this, "scrollCheck", setTimeout(function() {
-          //   console.log('stopscolling');
-          //     if(callback !== 'callback'){
-          //       parent.postMessage(jsonMessage,globals.ANGULAR_URL);
-          //     }else {
-          //      jQuery(doc).scrollTop(offSetTop_To);
-          //     }
-          //   }, 250) );
-
-
-          // }
+     
       
       })
-      .on('scroll',scrollHanlder);
+      .on('scroll',{ scrollOn: 'body' },scrollHanlder);
 
+      var table = jQuery(doc).find('.kci-desktop-datatable .dataTables_scrollBody');
+      jQuery(table).on('scroll',{ scrollOn: 'table' },scrollHanlder);
 
-      function clickHandler(e){
-
-      }
       
-      function scrollHanlder(e,callBack,offSetTop_To){
-        console.log('hander asd',doc['IgnoreScrollEvent']);
+      function scrollHanlder(e){
+        // console.log('scroll hander',doc['IgnoreScrollEvent']);
         let ignore = doc['IgnoreScrollEvent'];
         doc['IgnoreScrollEvent'] = false;
         if(ignore) return false;
@@ -162,13 +139,11 @@ export class FundNavigatorComponent implements OnInit,OnDestroy {
 
         clearTimeout( jQuery.data( this, "scrollCheck" ) );
           jQuery.data( this, "scrollCheck", setTimeout(function() {
-          console.log('stopscolling');
-          console.log('callBack',callBack);
-          if(callBack !== 'callback'){
+          // if(callBack !== 'callback'){
             parent.postMessage(jsonMessage,globals.ANGULAR_URL);
-          }else{
-            jQuery(doc).scrollTop(offSetTop_To);
-          }
+          // }else{
+          //   jQuery(doc).scrollTop(offSetTop_To);
+          // }
         }, 250) );
       }
 
@@ -191,32 +166,61 @@ export class FundNavigatorComponent implements OnInit,OnDestroy {
           return jsonMessage;
       }
 
+      function reCaptureTableSize(eventType){
+        let offsetTop = jQuery(table).scrollTop();
+        let tableHeight = jQuery(table).height();
+        let jsonMessage = {
+              offsetTop:offsetTop,
+              height:tableHeight,
+              eventType:eventType
+          };
+          return jsonMessage;
+      }
 
     });
-
-
 
   }
 
   receiveMessage: any = (event: any) =>  {
-    if (event.origin !== globals.ANGULAR_URL)
-    return;
-      this.messageCommunicationService.sendMessageCoordinate(
-        globals.FUND_NAVIGATOR,
-        event.data.eventType,
-        this.userService.isCurrentUserDevice(),
-        event.data.x,
-        event.data.y,
-        event.data.offsetTop,
-        event.data.width,
-        event.data.height,
-        event.data.documentHeight
-       );
 
+    if (event.origin !== globals.ANGULAR_URL){
+        // console.log('event.origin',event.origin);
+      return;
+    }
+      if(event.data.eventType === globals.OPEN_FUND_FACT_SHEET){
+        // example url
+        //   https://docs.google.com/gview?url=https://35.198.202.147/proxy/k-invest.kasikornbankgroup.com/FundFactSheet/K-CASH.pdf?v=295efae2-c169-148d-6bba-f70baa77ee8f&embedded=true
+        // console.log('url from chrome extension');
+        let URLSplit = event.data.url.split("/");
+        // let googleDocURL = "https://docs.google.com/gview?url="+URLSplit[0]+'//'+URLSplit[2]+'/'+'proxy'+'/k-invest.kasikornbankgroup.com/'+URLSplit[3]+'/'+URLSplit[4]+'&embedded=true';
+        // let googleDocURL = URLSplit[0]+'//'+URLSplit[2]+'/'+'proxy'+'/k-invest.kasikornbankgroup.com/'+URLSplit[3]+'/'+URLSplit[4];
+        let googleDocURL = 'https://k-invest.kasikornbankgroup.com/'+URLSplit[3]+'/'+URLSplit[4];
+        this.setSourceIframePDF(googleDocURL);
+        this.showPDFModal();
+        this.messageCommunicationService.sendMessageEventFundFactSheet(
+          globals.FUND_NAVIGATOR,
+          globals.OPEN_FUND_FACT_SHEET,
+          googleDocURL
+        );
+
+      }else{
+        // console.log('Sending message');
+        this.messageCommunicationService.sendMessageCoordinate(
+          globals.FUND_NAVIGATOR,
+          event.data.eventType,
+          this.userService.isCurrentUserDevice(),
+          event.data.x,
+          event.data.y,
+          event.data.offsetTop,
+          event.data.width,
+          event.data.height,
+          event.data.documentHeight
+        );
+      }
   }
 
   private callBackOnClickedMessage(message:MessageModel){
-    console.log('callBackOnClickedMessage');
+    // console.log('callBackOnClickedMessage');
     let doc =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
     let iframeWidth_To = jQuery(doc).width();
     let iframeHeight_To = jQuery('#fund-navigator-iframe').height();
@@ -226,28 +230,57 @@ export class FundNavigatorComponent implements OnInit,OnDestroy {
     let y_To = this.coordinateCalculatorService.get_y_coordinate(message.coordinate_y,message.iframeHeight,iframeHeight_To);
     let offSetTop_To = this.coordinateCalculatorService.get_offSetTop(message.offsetTop,message.documentHeight,documentHeight_To);
     
-    // console.log('new X ::',x_To);
-    // console.log('new Y ::',y_To);
-    // console.log('new offSetTop_To ::',offSetTop_To);
-
-    // jQuery(doc).trigger( "scroll", [ "callback",offSetTop_To])
     doc['IgnoreScrollEvent'] = true;
-    jQuery(doc).scrollTop(offSetTop_To);
+
+    jQuery(this.iframe.nativeElement.contentDocument.getElementById('overlayId') ).removeClass('overlayIframe');
+
+    // jQuery(doc).scrollTop(offSetTop_To);
+    jQuery(doc.elementFromPoint(x_To, y_To)).trigger( "focus");
+    jQuery(doc.elementFromPoint(x_To, y_To)).trigger( "active");
     jQuery(doc.elementFromPoint(x_To, y_To)).trigger( "click", [ "callback"]);
+
+    jQuery(this.iframe.nativeElement.contentDocument.getElementById('overlayId') ).addClass('overlayIframe');
+
 
   }
 
   private callBackOnScrollMessage(message:MessageModel){
-    console.log('callBackOnScrollMessage');
+    // console.log('callBackOnScrollMessage');
     let doc =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
     let documentHeight_To = jQuery(doc).height();
     let offSetTop_To = this.coordinateCalculatorService.get_offSetTop(message.offsetTop,message.documentHeight,documentHeight_To);
 
     doc['IgnoreScrollEvent'] = true;
     jQuery(doc).scrollTop(offSetTop_To);
-    // jQuery(doc).trigger( "scroll", [ "callback",offSetTop_To])
-
 
   }
+
+  private callBackOnOpenFundFactSheetMessage(message:MessageModel){
+    this.setSourceIframePDF(message.fund_fact_sheet_url);
+    this.showPDFModal();
+  }
+
+  private showPDFModal(){
+    jQuery('#PDFModal').modal({backdrop: "static"});
+  }
+
+  private hidePDFModal(){
+    jQuery('#PDFModal').modal('hide');
+  }
+
+  public OnPDFModalHidden(){
+    this.hidePDFModal();
+    this.messageCommunicationService.sendMessageEventFundFactSheet(
+       globals.FUND_NAVIGATOR,
+       globals.CLOSE_FUND_FACT_SHEET
+    );
+
+ 
+  }
+
+  private setSourceIframePDF(url){
+    jQuery('#func-fact-sheet-iframe').attr('src', url);
+  }
+
 
 }
